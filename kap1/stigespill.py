@@ -18,7 +18,6 @@ shadow = []
 players = []
 radstart = 111
 endring = -1
-teller = 0
 # Lager stiger
 stiger = [
     [1,4,9,21,28,36,51,71,80],
@@ -36,7 +35,7 @@ for i in range(rader):
         radstart -= 9
         endring = 1
     brett.append([])
-    shadow.append([])
+    shadow.append([])   # lager rad i skyggebrettet
     for j in range(kolonner):
         # Leter etter slanger og stiger
         if radstart in slanger[0]:
@@ -45,38 +44,53 @@ for i in range(rader):
             brett[i].append("🪜")
         else:
             brett[i].append(radstart)
-        shadow.append(radstart)
+        shadow[i].append(radstart) # Fyller skyggebrettet
         radstart += endring
-
-
-
-        
-#print(ord("🐍"))
 
 
 
 # Starter spillet
 viSpiller = True
 posisjon = 0
+posisjon_stige = 0
+posisjon_slange = 0
 posisjon_old = 0
+m = 9
+n = 0
+antKast = 0
 while viSpiller:
     input("Trykk enter for å kaste terning...")
+    antKast += 1
     terning = randint(1,6)
+    print(f"Terning: {terning}")
     posisjon += terning
     if posisjon in stiger[0]: # Leter etter om posisjonen finnes i listen med start for stigene.
         # finner indeksen til stigen så vi kan anvende indeksen på listen med enden på stigene.
+        posisjon_stige = posisjon
         kol_indeks = stiger[0].index(posisjon)
-        posisjon = stiger[0][kol_indeks]
+        posisjon = stiger[1][kol_indeks]
         print("STIGE!")
-    print(f"Spiller gikk fra posisjon {posisjon_old} til posisjon {posisjon}")
+        print(f"Spiller gikk fra posisjon {posisjon_old} via {posisjon_stige} til posisjon {posisjon}")
+    elif posisjon in slanger[0]: # Leter etter om posisjonen finnes i listen med start for slangene.
+        # finner indeksen til slangen så vi kan anvende indeksen på listen med enden på slangene.
+        posisjon_slange = posisjon
+        kol_indeks = slanger[0].index(posisjon)
+        posisjon = slanger[1][kol_indeks]
+        print("SLANGE UÆÆÆ!")
+        print(f"Spiller gikk fra posisjon {posisjon_old} via {posisjon_slange} til posisjon {posisjon}")
+    else:
+        print(f"Spiller gikk fra posisjon {posisjon_old} til posisjon {posisjon}")
     posisjon_old = posisjon
+    if posisjon >= rader * kolonner:
+        print(f"Du vant!")
+        print(f"Antall kast: {antKast}")
+        viSpiller = False
+        continue
     
-    # Leter etter indeksen til spiller
-    m = 9
-    n = 0
+    # Leter etter indeksen til spiller i shadow-brettet som inneholder selve tallene og ingen emojis.
     for i in range(rader):
         for j in range(kolonner):
-            if brett[i][j] == posisjon:
+            if shadow[i][j] == posisjon:
                 m = i
                 n = j
     print(f"rad: {m}, kol: {n}")
@@ -94,7 +108,7 @@ while viSpiller:
                         print(f" {brett[i][j]}", end=" ")
                 else:
                     print(f"{brett[i][j]:3}", end=" ")
-        if i == m and j == n:
+        if i == m and n == kolonner - 1:
             print(" 🅿️ ")
         elif isinstance(brett[i][j],str):
                 if ord(brett[i][j]) > 1000:
