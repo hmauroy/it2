@@ -63,7 +63,7 @@ statistikk = {
     "felter": [0 for x in range(106)],
 
 }
-ant_repetisjoner = 10
+ant_repetisjoner = 1000
 for i in range(ant_repetisjoner):
     viSpiller = True
     teller = 0
