@@ -1,7 +1,7 @@
 brett = []
 m = 8
 n = 8
-partall = True
+partall = False
 for i in range(m):
     brett.append([])
     for j in range(n):
