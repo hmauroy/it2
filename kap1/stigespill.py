@@ -110,9 +110,9 @@ while viSpiller:
                     print(f"{brett[i][j]:3}", end=" ")
         if i == m and n == kolonner - 1:
             print(" 🅿️ ")
-        elif isinstance(brett[i][j],str):
-                if ord(brett[i][j]) > 1000:
-                    print(f" {brett[i][j]}")
+        elif isinstance(brett[i][-1],str):
+                if ord(brett[i][-1]) > 1000:
+                    print(f" {brett[i][-1]}")
         else:
             print(f"{brett[i][-1]:3}")
 
