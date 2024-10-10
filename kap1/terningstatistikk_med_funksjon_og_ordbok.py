@@ -27,3 +27,5 @@ def statistikk(antall_kast):
 terningstatistikk = statistikk(100)
 for key,value in terningstatistikk.items():
     print(f"Terning {key}: {value} forekomster")
+
+

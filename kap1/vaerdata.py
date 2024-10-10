@@ -1,3 +1,6 @@
+"""
+Værdata hentet fra https://mauroy.fun/weather_data
+"""
 data = [
   {
     "hum": 100.0,
