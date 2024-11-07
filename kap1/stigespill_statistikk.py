@@ -63,8 +63,12 @@ statistikk = {
     "felter": [0 for x in range(106)],
 
 }
-ant_repetisjoner = 1000
+ant_repetisjoner = 100000
 for i in range(ant_repetisjoner):
+    # Printer ut prosent fremdrift, bruker ressurser men kan være fint å se på.
+    if i % (10*ant_repetisjoner/100) == 0:
+        print(f"{100* i / ant_repetisjoner:.0f} %")
+
     viSpiller = True
     teller = 0
     # Starter spillet
@@ -166,7 +170,17 @@ plt.title(f"Stigespill antall kast for å vinne etter {ant_repetisjoner} spill."
 plt.xlabel("Antall kast")
 plt.ylabel("Frekvens")
 
-plt.show()
+#plt.show()
+
+
+# Skriver statistikk til fil (kapitttel 3B)
+import json
+utdata = json.dumps(statistikk,indent=4)
+print(utdata)
+
+# Skriver til fil
+with open(f"statistikk_stigespill_{ant_repetisjoner}reps.json", "w") as fil:
+    fil.write(utdata)
 
 
 
