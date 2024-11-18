@@ -12,7 +12,7 @@ def zoo():
 @pytest.fixture
 def barskog():
     '''Returnerer en tom barskog'''
-    return Område("Barskog",["grantrær","furutrær"])
+    return Område("Barskog",["grantrær","furutrær","gnagere"])
 
 @pytest.fixture
 def savanne():
@@ -22,7 +22,7 @@ def savanne():
 @pytest.fixture
 def rev_1():
     '''Returnerer første pattedyr: en rev.'''
-    return Pattedyr("rev",2,"rødbrun","gnagere")
+    return Pattedyr("rev",2,"rødbrun",["gnagere"])
 
 @pytest.fixture
 def mus_2():
@@ -37,8 +37,18 @@ def test_default_barskog(barskog):
     assert "furutrær" in barskog.features
 
 def test_settId_1(rev_1):
-    assert 601 <= rev_1.identifikasjonskode <= 1001
+    assert 1101 <= rev_1.identifikasjonskode <= 1501
 
 
 def test_settId_2(mus_2):
-    assert 501 <= mus_2.identifikasjonskode <= 2001
+    assert 2101 <= mus_2.identifikasjonskode <= 2501
+
+def test_pelsfarge(rev_1):
+    assert rev_1.pelsfarge == "rødbrun"
+
+def test_revtekst(rev_1):
+    assert rev_1.__str__()[:23] == "Art: rev, Alder: 2, ID:"
+
+def test_legg_til_dyr(barskog,rev_1,mus_2):
+    assert barskog.legg_til_dyr(rev_1) == True
+    #assert barskog.legg_til_dyr(mus_2) == "Kan"

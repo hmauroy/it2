@@ -59,8 +59,9 @@ class Område:
                 kan_legges_til = False
         if kan_legges_til:
             self.dyr_i_område.append(dyr)
+            return True
         else:
-            print("Kan ikke plassere dyret i dette området pga. oppfyller ikke dyrets behov.")
+            return f"Kan ikke plassere dyret i dette området pga. oppfyller ikke dyrets behov."
 
     def fjern_dyr(self, dyr):
         self.dyr_i_område.remove(dyr)
