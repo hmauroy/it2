@@ -27,3 +27,5 @@ tid3 = dt.datetime(1983,5,17,1,37)
 t_diff_2 = tid1 - tid3
 print(f"Tidsdifferanse er {t_diff_2.days} dager")
 print(f"Tidsdifferanse er {t_diff_2.days*24*3600:.3e} s")
+
+# Pen utskrift
