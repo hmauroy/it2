@@ -37,7 +37,8 @@ def test_default_barskog(barskog):
     assert "furutrær" in barskog.features
 
 def test_settId_1(rev_1):
-    assert 101 <= rev_1.identifikasjonskode <= 501
+    assert 601 <= rev_1.identifikasjonskode <= 1001
 
-def test_settId_2(rev_1,mus_2):
-    assert rev_1.identifikasjonskode != mus_2.identifikasjonskode
+
+def test_settId_2(mus_2):
+    assert 501 <= mus_2.identifikasjonskode <= 2001

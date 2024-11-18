@@ -11,8 +11,8 @@ class Dyr:
         self.identifikasjonskode = self.settId()
     
     def settId(self):
-        Dyr.teller += randint(100,500)
-        return Dyr.teller
+        Dyr.teller += 1000
+        return Dyr.teller + randint(100,500)
 
     def __str__(self):
         return f"Art: {self.art}, Alder: {self.alder}, ID: {self.identifikasjonskode}, Behov: {self.behov}"
