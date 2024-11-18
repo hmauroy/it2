@@ -52,7 +52,7 @@ class Område:
         self.features = features
         self.dyr_i_område = []
 
-    def legg_til_dyr(self, dyr):
+    def legg_til_dyr(self, dyr) -> bool|str:
         kan_legges_til = True
         for behov in dyr.behov:
             if behov not in self.features:
