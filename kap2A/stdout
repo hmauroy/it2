@@ -1,0 +1,33 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.7, pytest-7.4.0, pluggy-1.0.0
+rootdir: C:\Users\hemaa062\OneDrive - Osloskolen\it2\2024_25\kap2A
+plugins: anyio-4.2.0
+collected 6 items
+
+test_zoo.py .....F                                                       [100%]
+
+================================== FAILURES ===================================
+______________________________ test_legg_til_dyr ______________________________
+
+barskog = <zoo.Område object at 0x000001FB31B55DD0>
+rev_1 = <zoo.Pattedyr object at 0x000001FB31AF9C50>
+mus_2 = <zoo.Pattedyr object at 0x000001FB31B53250>
+
+    def test_legg_til_dyr(barskog,rev_1,mus_2):
+        assert barskog.legg_til_dyr(rev_1) == True
+        assert barskog.legg_til_dyr(mus_2)[:3] == "Kan"
+        rev_er_her = False
+        for dyr in barskog.dyr_i_område:
+            if dyr == rev_1:
+                rev_er_her = True
+        print(rev_1 in barskog.dyr_i_område)
+>       assert rev_1 in barskog.dyr_i_område == True
+E       assert [<zoo.Pattedyr object at 0x000001FB31AF9C50>] == True
+E        +  where [<zoo.Pattedyr object at 0x000001FB31AF9C50>] = <zoo.Område object at 0x000001FB31B55DD0>.dyr_i_område
+
+test_zoo.py:60: AssertionError
+---------------------------- Captured stdout call -----------------------------
+True
+=========================== short test summary info ===========================
+FAILED test_zoo.py::test_legg_til_dyr - assert [<zoo.Pattedyr object at 0x000...
+========================= 1 failed, 5 passed in 0.14s =========================

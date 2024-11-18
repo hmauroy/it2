@@ -52,3 +52,4 @@ def test_revtekst(rev_1):
 def test_legg_til_dyr(barskog,rev_1,mus_2):
     assert barskog.legg_til_dyr(rev_1) == True
     assert barskog.legg_til_dyr(mus_2)[:3] == "Kan"
+    assert rev_1 in barskog.dyr_i_område    # Logiske tester kjøres kun med assert.
