@@ -1,0 +1,6 @@
+// Binary Tree, NOT Search tree!
+digraph {
+	A [label=KRISTIANSEN]
+	B [label=GJERSTAD]
+	C [label=OLDERVIK]
+}

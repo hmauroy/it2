@@ -1,0 +1,22 @@
+// Binary Tree, NOT Search tree!
+digraph {
+	A [label=KRISTIANSEN]
+	B [label=GJERSTAD]
+	C [label=OLDERVIK]
+	D [label=NYMANN]
+	E [label="VESTLY SKIVIK"]
+	F [label=ELI]
+	G [label=LINNERUD]
+	H [label=REMLO]
+	I [label="ï¿½STBY"]
+	J [label=SKARSHAUG]
+	A -> B
+	A -> C
+	C -> D
+	C -> E
+	B -> F
+	D -> G
+	E -> H
+	E -> I
+	H -> J
+}
