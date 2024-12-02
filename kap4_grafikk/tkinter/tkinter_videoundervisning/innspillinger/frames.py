@@ -8,11 +8,18 @@ hoyde = 500
 window.minsize(bredde, hoyde)
 window.configure(background="#FFFFFF") # Bruke web colors, white, black, peachpuff, maroon...
 
+"""
+Farger
+#233142 mørk gråblå
+#455d7a mørk grå
+#f95959 rødorange
+"""
+
 # 1) Lage en header boks
 header = tk.Frame(window,
     width = bredde,
     height=100,
-    background="dodgerblue"
+    background="#233142"
     )
 header.pack() # Legger rammen til vinduet.
 
@@ -20,7 +27,7 @@ header.pack() # Legger rammen til vinduet.
 hovedramme = tk.Frame(window,
     width=bredde,
     height=350,
-    background="peachpuff"
+    background="#455d7a"
 )
 hovedramme.pack()
 
@@ -28,7 +35,7 @@ hovedramme.pack()
 footer = tk.Frame(window,
     width=bredde,
     height=50,
-    background="chartreuse"
+    background="#f95959"
     )
 footer.pack()
 

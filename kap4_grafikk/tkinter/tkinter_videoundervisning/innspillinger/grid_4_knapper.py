@@ -6,6 +6,7 @@ window = tk.Tk()
 bredde = 500 # størrelse i pixler
 hoyde = 500
 window.minsize(bredde, hoyde)
+window.title("Grid og knapper")
 window.configure(background="#FFFFFF") # Bruke web colors, white, black, peachpuff, maroon...
 
 # 1) Lage en header boks
@@ -48,10 +49,12 @@ indre_ramme.grid(row=0,column=0)
 btn1 = tk.Button(indre_ramme, text="1", width=3, height=3)
 btn2 = tk.Button(indre_ramme, text="2", width=3, height=3)
 btn3 = tk.Button(indre_ramme, text="3", width=3, height=3)
+btn4 = tk.Button(indre_ramme, text="4", width=5, height=3)
 
 btn1.grid(row=1, column=1)
 btn2.grid(row=2, column=2)
 btn3.grid(row=3, column=3)
+btn4.grid(row=4, column=0)
 
 
 window.mainloop()
