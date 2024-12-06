@@ -27,7 +27,7 @@ avslutt.pack()
 a = 0
 b = 0
 operasjon = "pluss"
-svar = tk.Label(text=f"Svar")
+svar = tk.Label(text="Svar")
 svar.pack()
 
 
