@@ -10,25 +10,12 @@ window.minsize(bredde,hoyde)    # Setter vinduets størrelse ved oppstart.
 window.configure(background="#00873E")
 window.title("Canvas-tegning")
 
-# 1) Lager en ramme der canvas skal ligge inni
-hovedvindu = tk.Frame(window)
-hovedvindu.configure(
-    background="red",
-    height= 0.9 * hoyde,
-    width= 0.95 * bredde,
-    highlightbackground="white", # Border
-    highlightthickness=5, # border-width
-)
-hovedvindu.pack()
-
-hovedvindu.pack_propagate(False) # Skrur av at children kan endre rammen.
-
-# 2) Lager canvas der tegningene skal komme opp.
+# 1) Lager canvas der tegningene skal komme opp.
 canvas = tk.Canvas(
-    hovedvindu, 
-    width=375, 
-    height=375, 
-    background="#00873E",
+    window, 
+    width=bredde, 
+    height=0.9 * hoyde, 
+    background="#235E6F",
     highlightbackground="white",
     highlightthickness=5, # border-width,
     )
@@ -51,7 +38,7 @@ x = 50
 y = 100
 R = 20
 canvas.create_oval(x-R, y-R, x+R, y+R,
-                    fill="red", 
+                    fill="black", 
                     outline="white", 
                     width=3,    # Bredde på omriss
                     tags="sirkel")
@@ -62,24 +49,25 @@ H = 30
 x2 = 200
 y2 = 300
 canvas.create_rectangle(x2-L/2, y2-H/2, x2+L/2, y2+H/2,
-                    fill="blue", 
-                    outline="red", 
+                    fill="white", 
+                    outline="black", 
                     width=6,    # Bredde på omriss
                     tags="rektangel")
 
+# III) Lager en arc
+
+# IV) Lager en blomst som består av flere sirkler
+
 
 # A) Lager knapper
-avslutt_knapp = tk.Button(footer, text="Avslutt")
+avslutt_knapp = tk.Button(footer, text="Avslutt", command=lambda: avslutt())
 avslutt_knapp.pack()
 
 # B) Lager funksjonene til knappene
-def avslutt(eventet):
+def avslutt():
     """Avslutter vinduet og programmet."""
     window.destroy()
 
-
-# C) Binder knapper til funksjoner
-avslutt_knapp.bind("<Button-1>", avslutt)
 
 
 # Kjører GUI-tråden

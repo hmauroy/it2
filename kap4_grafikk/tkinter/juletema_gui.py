@@ -8,6 +8,7 @@ bredde = 500
 hoyde = 500
 window.minsize(bredde,hoyde)    # Setter vinduets størrelse ved oppstart.
 window.configure(background="blue")
+window.title("Juletema GUI")
 
 # 1) Lager første vindu en "Frame"
 header = tk.Frame(window)
