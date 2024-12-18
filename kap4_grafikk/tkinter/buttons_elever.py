@@ -8,7 +8,6 @@ bredde = 500
 hoyde = 500
 window.minsize(bredde,hoyde)    # Setter vinduets størrelse ved oppstart.
 window.configure(background="#00873E")
-window.title("Buttons")
 
 # 1) Lager første vindu en "Frame"
 header = tk.Frame(window)

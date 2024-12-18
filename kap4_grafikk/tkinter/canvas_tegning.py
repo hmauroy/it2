@@ -5,18 +5,17 @@ Knapper er i fokus!
 import tkinter as tk
 window = tk.Tk()
 bredde = 500
-hoyde = 600
+hoyde = 500
 window.minsize(bredde,hoyde)    # Setter vinduets størrelse ved oppstart.
 window.configure(background="#00873E")
-window.title("Canvas-tegning")
 
 # 1) Lager en ramme der canvas skal ligge inni
 hovedvindu = tk.Frame(window)
 hovedvindu.configure(
     background="red",
-    height= 0.9 * hoyde,
-    width= 0.95 * bredde,
-    highlightbackground="white", # Border
+    height= hoyde,
+    width= 0.9 * bredde,
+    highlightbackground="white",
     highlightthickness=5, # border-width
 )
 hovedvindu.pack()
@@ -26,8 +25,8 @@ hovedvindu.pack_propagate(False) # Skrur av at children kan endre rammen.
 # 2) Lager canvas der tegningene skal komme opp.
 canvas = tk.Canvas(
     hovedvindu, 
-    width=375, 
-    height=375, 
+    width=350, 
+    height=350, 
     background="#00873E",
     highlightbackground="white",
     highlightthickness=5, # border-width,
