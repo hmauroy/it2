@@ -93,6 +93,7 @@ intervall = 1 / fps
 while isRunning:
     if time.time() - forrige_tid >= intervall:
         forrige_tid = time.time()
+        nisse.kollisjon(bredde,hoyde)
         nisse.oppdater()
         print(nisse.x,nisse.y)
         nisse.tegn(canvas)

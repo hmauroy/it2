@@ -21,6 +21,12 @@ class Nisse:
         outline="black",
         width=5,
         tags="nisse")
+    
+    def kollisjon(self, bredde, hoyde):
+        if self.x >= bredde + self.R:
+            self.x = -self.R
+        elif self.x <= -self.R:
+            self.x = bredde + self.R
         
 
 
