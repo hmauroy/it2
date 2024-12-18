@@ -39,8 +39,8 @@ footer.pack()
 
 
 # Lager nisse-objekt
-nisse = Nisse()
-canvas.create_image(nisse.x, nisse.y, image=nisse.bilde)
+nisse = Nisse(canvas)
+
 
 # A) Lager knapper
 avslutt_knapp = tk.Button(footer, text="Avslutt")
@@ -95,7 +95,6 @@ while isRunning:
         forrige_tid = time.time()
         nisse.kollisjon(bredde,hoyde)
         nisse.oppdater()
-        print(nisse.x,nisse.y)
         nisse.tegn(canvas)
 
     # Refresh vindu
