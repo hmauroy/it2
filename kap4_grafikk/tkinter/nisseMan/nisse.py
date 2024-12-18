@@ -29,6 +29,10 @@ class Nisse:
             self.x = -self.R
         elif self.x <= -self.R:
             self.x = bredde + self.R
+        elif self.y <= -self.R:
+            self.y = hoyde + self.R
+        elif self.y >= hoyde + self.R:
+            self.y = -self.R
 
 
 
