@@ -88,7 +88,7 @@ avslutt_knapp.bind("<Button-1>", avslutt)
 start_tid = time.time()
 forrige_tid = time.time()
 isRunning = True
-fps = 1
+fps = 60
 intervall = 1 / fps
 while isRunning:
     if time.time() - forrige_tid >= intervall:
