@@ -1,0 +1,1 @@
+header.create_image(windowWidth/2,45,image=pacman_logo)
