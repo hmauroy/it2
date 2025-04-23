@@ -1,0 +1,891 @@
+
+ 
+Tittel:
+MakeKit Tegnerobot	Tittel:
+MakeKit Tegnerobot
+	Gradering:
+Åpen
+Forfattere:
+Hansen, Mads 
+Mauroy, Henrik 
+Sokol, Oliver 	Forfattere:
+Hansen, Mads 
+Mauroy, Henrik 
+Sokol, Oliver 
+	Antall vedlegg:
+17
+Fakultet: 
+IVT	Fakultet: 
+IVT
+Studieretning:
+Datateknologi
+Veileder:
+Werner Farstad, Aleksander Pedersen 
+Oppdragsgiver:
+MakeKit
+Oppdragsgivers kontaktperson:
+Henning Pedersen
+Sammendrag:
+Dette er en sluttrapport for bacheloroppgaven til Gruppe 8 – MakeKit Tegnerobot. I dette dokumentet og dets vedlegg dokumenteres og diskuteres prosessen med å bidra til utvikling av en tegnerobot som MakeKit ønsker å ha som en del av sitt produkt portefølje. Underbyggende litteratur og resultater blir fremstilt og diskutert.
+Abstract:
+This is the final report for Group 8’s bachelor thesis – MakeKit Drawing Robot. In this report, and it’s attachments, the process of contributing to the development of a drawing robot MakeKit wishes to have as a part of its product portfolio is documented and discussed. Substantiating literature and results are produced and discussed.
+ 
+
+Forord
+Dette prosjektet representerer ikke bare månedene med arbeid, forskning og innovasjon som vi har tilegnet oss, men også et dypt engasjement fra våre familier som har støttet oss gjennom denne utfordrende, men utrolig givende reisen. 
+Til våre partnere og barn, dedikeres dette arbeidet til dere som har vært både vår havn og inspirasjon. Deres tålmodighet og oppmuntring har vært uvurderlig. 
+Takket være dere har vi kunnet møte alle utfordringer med fornyet styrke.
+En spesiell takk ønskes også til våre veiledere Werner Farstad og Alexander Pedersen, og Henning Pedersen hos MakeKit, hvis støtte og innsiktsfulle veiledning var essensiell for gjennomføringen av dette prosjektet.
+Vi håper at resultatene og kunnskapene generert fra dette prosjektet vil bidra til å fremme bruk av interaktiv teknologi i utdanningssektoren og inspirere til videre forskning innen feltet.
+
+Narvik, 28. mai 2024
+
+
+   	                                     
+         Mads Hansen			    Henrik Mauroy			 Oliver Sokol
+
+
+ 
+Sammendrag
+Dette prosjektet har fokusert på å utvikle en tegnerobot for barn og voksne, som kan tegne grunnleggende og avanserte geometriske figurer og former og gi en praktisk og interaktiv opplevelse. Målet var å skape et pedagogisk verktøy som både illustrerer geometriske figurer og engasjerer brukerne på en underholdende måte.
+Ved å bruke micro:bit som styringsenhet og Microsoft MakeCode som programmerings-plattform, er tegneroboten designet til å motta brukerinput og tegne geometriske figurer med høy presisjon. Implementering av stepper motorer og sikrer nøyaktighet og pålitelighet i robotens operasjoner.
+Gjennom utviklingen ble prototypen testet og forbedret basert på tilbakemeldinger og tekniske tester. Sluttbrukertester med skoleelever ga indikasjoner på økt forståelse og interesse for matematikk og teknologi, noe som bekrefter dens pedagogiske verdi.
+Prosjektet er et samarbeid med MakeKit, som tidligere har utviklet pedagogiske produkter som droner og roboter, med micro:bit som styringsenhet. Tegneroboten skal omforme vektorgrafikk og bitmap til fysiske tegninger. Prosjektet har formulert hypoteser for å undersøke bruk av mikrokontrollere, pedagogiske plattformer for læring, konvertering av SVG-filer til robotinstruksjoner, kvalitetssikring og bruk av Scrumban som arbeidsmetode.
+Målsetningene inkluderer å utvikle en brukervennlig tegnerobot med funksjonalitet for geometrisk plotting og filkonvertering, samt å gjennomføre omfattende testing og validering av både maskinvare og programvare. Regelmessig kommunikasjon med oppdragsgiver har vært viktig for å sikre at målsetningene er spesifikke, målbare, oppnåelige, relevante og tidsbestemte (SMART).
+Prosjektet er avgrenset til de mest grunnleggende funksjonene for å sikre fokus og gjennomførbarhet. Rapporten er strukturert med litteraturstudium, metodologi, systemarkitektur, testresultater og konklusjoner for å utvikle en kostnadseffektiv og pedagogisk tegnerobot.
+Prosjektet fremhever også sin relevans i forhold til FNs bærekraftsmål, spesielt innen kvalitetsutdanning, innovasjon og ansvarlig forbruk. Resultatet er en tegnerobot som tilbyr en ny, engasjerende måte å lære og undervise i geometri på, som er både informativ og underholdende.
+
+
+ 
+
+Innholdsfortegnelse
+Forord	iii
+Sammendrag	iv
+Innholdsfortegnelse	v
+1	Introduksjon og relevans	1
+1.1	Bakgrunnen for prosjektet	1
+1.2	Problemstilling og hypoteser	1
+1.3	Målsetninger	2
+1.4	Oppdragsgivers behov og prosjektets relevans	3
+1.5	Avgrensninger i oppgaven	4
+1.6	Struktur på rapporten	4
+2	Teori og teknologiske valgmuligheter	5
+2.1	Teknologier for programvareutvikling	5
+2.1.1	Simulering og webapplikasjon	5
+2.1.2	Utviklingsmiljø og programmeringsparadigmer	6
+2.1.3	Versjonskontroll	7
+2.1.4	Prosjektstyringsverktøy	7
+2.1.5	Vektorgrafikk	7
+2.2	Teknologier for maskinvareutvikling	8
+2.2.1	Bevegelse av tegneredskap i planet	8
+2.2.2	Steppermotor og stepper-driver	9
+2.2.3	Mikrokontroller	9
+2.2.4	Elektroniske komponenter og koblinger	9
+2.2.5	Løftemekanisme for tegneroboten	10
+2.2.6	Matematikk og algoritmer i bevegelse	10
+2.3	Teoretisk drøfting av utviklingsmetoder	10
+2.3.1	Iterasjon og inkrementell forbedring	10
+2.3.2	Brukersentrert utvikling	12
+2.3.3	Team og prosjektstyring	13
+3	Valg av teknologi og utviklingsmetode	15
+3.1	Valg av programvareteknologi	15
+3.2	Teknologivalg maskinvare	16
+3.3	Utviklingsmetode	17
+3.3.1	Scrumban fra start	17
+3.3.2	Overgang fra Scrumban til Kanban	18
+3.3.3	Risikoanalyse	18
+3.4	Arbeids og rollefordeling	19
+4	Systemarkitektur og implementasjon	20
+4.1	Tegnerobot	20
+4.2	Programvarearkitektur	22
+4.2.1	Programflyt i MakeCode	23
+4.2.2	Bresenham-algoritmen for linjer	23
+4.2.3	Pulsgenerator	23
+4.2.4	I2C-kommunikasjon mot PCA9557	24
+4.2.5	Bilde til SVG og SVG til tegning	24
+4.3	Fysisk implementasjon	25
+4.3.1	Prototypen	25
+4.3.2	PCA9557 I/O-utvidelseschip	26
+4.4	Testing og validering under utvikling	26
+4.4.1	Enhets- og integrasjonstester	26
+4.4.2	Brukertester	27
+4.5	Simulering og dens rolle i utviklingsprosessen	28
+4.5.1	Formål med simulatoren	28
+4.5.2	Hvordan simulatoren fungerer	28
+5	Sluttesting og resultater	30
+5.1	Testmetodikk	30
+5.2	Vitenskapelige resultater	30
+5.2.1	Repetisjonsanalyse	30
+5.2.2	Resultat av kalibreringstegning	30
+5.2.3	Resultat av bilde-til-SVG webapplikasjon.	30
+5.2.4	Resultat av SVG-tegning	31
+5.3	Ingeniørfaglige resultater	31
+5.3.1	Systemytelse ved levering	31
+5.4	Administrative resultater	32
+5.5	Resultater fra brukertesting	33
+6	Diskusjon	35
+6.1	Evaluering av hypoteser	35
+6.2	Evaluering av målsetninger	35
+6.3	Oppsummering av oppnådde målsetninger	36
+6.4	Vurdering av programvareverktøy	36
+6.4.1	MakeCode:	36
+6.4.2	Tegnesimulator:	37
+6.5	Enhetstesting for reproduserbarhet	38
+6.5.1	Bilde-til-SVG	38
+6.5.2	Bilde-til-tegning reproduserbarhet	39
+6.5.3	Ingeniørfaglige Utfordringer:	39
+6.6	Samfunnsmessige og etiske betraktninger	40
+6.7	Vurdering av produktets effektivitet	41
+6.8	Implikasjoner for fremtidige prosjekter	41
+7	Konklusjon og anbefalinger	42
+7.1	Hovedkonklusjoner	42
+7.2	Vurdering av hypotesene	42
+7.3	Anbefalinger for fremtidige arbeider	42
+7.4	Sluttord	43
+8	Referanser	44
+9	Liste over figurer	47
+10	Liste over tabeller	48
+11	Liste over akronymer og forkortelser	49
+12	Vedlegg	50
+
+
+
+
+  
+1	Introduksjon og relevans
+Dette kapittelet innleder bacheloroppgaven ved å gi en oversikt over bakgrunnen for prosjektet, dets relevans og målsetninger, samt en gjennomgang av problemstillingen som prosjektet tar for seg. 
+Bacheloroppgaven har som mål å designe og utvikle programvare for en tegnerobot, som skal brukes som et pedagogisk verktøy. Denne tegneroboten skal engasjere både hobbyister og undervisningssektoren ved å lære barn og voksne grunnleggende prinsipper innen geometri og kunst. Dette oppnås gjennom praktisk erfaring med programmering og mekanisk interaksjon.
+
+1.1	Bakgrunnen for prosjektet
+Initiativet til prosjektet stammer fra et samarbeid med oppdragsgiveren MakeKit [1]. MakeKit er en veletablert aktør innen utvikling av pedagogiske verktøy rettet mot teknologi og innovasjon i undervisningssammenheng. Den foreslåtte tegneroboten lar brukere utføre og visualisere avanserte geometriske operasjoner via en enkel og brukervennlig plattform.. 
+
+MakeKit er kjent for sine innovative produkter innen robotikk og deres fokus på bærekraftige materialer. Produktporteføljen inkluderer blant annet en fjernstyrt drone, luftputebåt og en tohjulet robot med gripearm. Alle disse produktene kan programmeres på MakeCode plattformen og styres av en micro:bit mikrokontroller [2], som er en liten datamaskin på størrelse med et kredittkort. Figur 1 viser veien fra kode til tegnerobot.
+
+ 
+Figur 1: Hvordan tegneroboten samhandler med micro:bit og Makecode.
+
+MakeKit ønsker nå å utvikle en tegnerobot som kan brukes til undervisning og læring av robotikk, programmering og geometri. Med bakgrunnen i dette ønsket, blir neste steg å definere prosjektets problemstilling og hypoteser.
+1.2	Problemstilling og hypoteser
+Hensikten med dette prosjektet er å undersøke om en tegnerobot kan omforme vektorgrafikk til en fysisk tegning. Dette skal gjøres på en pedagogisk og kostnadseffektiv måte.  
+For å besvare dette hovedspørsmålet er det formulert fem hypoteser som vist i Tabell 1.
+ 
+Tabell 1: Prosjektets fem hypoteser og hvordan disse skal testes eller evalueres
+Hypotese	Beskrivelse	Testing / Evaluering
+Hypotese 1	En tegnerobot som bruker mikrokontroller-teknologi [2], en liten programmerbar databrikke, og en passende algoritme for å kontrollere motorene, kan tegne nøyaktige tegninger fra digitale bildefiler.	Testing av denne hypotesen vil innebære utvikling og implementering av en algoritme for motorstyring basert på mikrokontroller-teknologi, samt evaluering av nøyaktigheten til de resulterende tegningene.
+Hypotese 2	Integrasjon av ferdig programmerte figurer og omforming av bildefiler til vektorgrafikk vil gi en pedagogisk og brukervennlig plattform for læring.	Denne hypotesen vil bli undersøkt gjennom utvikling og brukervennlighetstesting av integrerte programmeringsverktøy og teknologi for å konvertere grafikk.  
+Hypotese 3	Det er mulig å kode en løsning som kan konvertere SVG-filer til instruksjoner som styrer bevegelsene til en tegnerobot.	Evaluering av denne hypotesen krever utvikling av en løsning for konvertering av SVG-filer til instruksjoner som styrer tegnerobotens bevegelser.   
+Hypotese 4	En iterativ kvalitetssikringsprosess vil sikre funksjonalitet og pålitelighet i den endelige løsningen som leveres til oppdragsgiver, samt overholde standardene som er foreskrevet i kravspekdokumentasjonen i Vedlegg C.	Kvalitetssikringsprosessen vil omfatte kontinuerlig testing og validering mot de spesifiserte kravene i kravspekdokumentasjonen.
+Hypotese 5	Scrumban som arbeidsmetodikk vil være en optimal tilnærming til prosjektstyring og utvikling av både programvare og maskinvare, og vil sikre fleksibilitet og effektivitet i prosjektet gitt de ukjente elementene ved integrasjon.	Effektiviteten av Scrumban som arbeidsmetodikk vil bli vurdert gjennom hele prosjektets livssyklus, med fokus på fleksibilitet og effektivitet.  
+
+Med disse hypotesene som grunnlag, er neste steg å identifisere og beskrive de målsetninger og ønsker som vil veilede utviklingen av prosjektet.
+1.3	Målsetninger
+De opprinnelige mål og ønsker fra MakeKit som beskrevet i den opprinnelige oppgavebeskrivelsen i Vedlegg A er listet opp i Tabell 2.
+Tabell 2: De fire opprinnelige mål og ønsker fra MakeKit
+Nr	Mål/Ønsker	Beskrivelse
+1	Brukervennlig tegnerobot	MakeKit utvikler en brukervennlig tegnerobot basert på micro:bit for undervisningsformål.
+2	Geometrisk Plotting	Lage funksjonalitet for enkel geometrisk plotting, som en sirkel med justerbar diameter.
+3	Konvertering av Filer	Mulighet for å konvertere bitmap og vektorgrafikk (SVG) filer til koordinater som tegnerobot kan forstå og flytte seg i henhold til.
+4	Overføring av Filer	Overføre filer til micro:bit ved hjelp av TypeScript og base-64 format gjennom MakeCode plattformen. Presisering: Kodefiler overføres til micro:bit via MakeCode-plattformen, som bruker Static TypeScript og kompilerer til ARM Thumb-instruksjoner [3,4].
+
+I forprosjektet, dokumentert i Vedlegg B, ble de opprinnelige målsetninger og ønsker justert etter dialog med MakeKit. Justeringene ble gjennomført for å bedre møte deres behov og tekniske krav. Denne prosessen inkluderte flere trinn med justeringer og tilleggskrav. For å sikre at alle nødvendige aspekter og krav ble inkludert i prosjektet, var det nødvendig å sammenfatte de opprinnelige målsetningene, justeringene fra forprosjektet, og brukerhistoriene fra kravspekdokumentet i Vedlegg C med diskusjoner fra prosessdokumentet i Vedlegg E til en helhetlig liste. Fra denne fullstendige listen ble de 6 målsetningene som fremstod som viktigst for prosjektet, valgt ut for videre utvikling som vist under i Tabell 3. En full oversikt over alle målsetninger og den komplette prosessen finnes i Vedlegg Q.
+Tabell 3: Endelige Mål og Brukerkrav
+Nr	Kategori	Mål/Brukerkrav
+1	Brukervennlighet og Grensesnitt	MakeKit skal utvikle en brukervennlig tegnerobot basert på micro:bit for undervisningsformål.
+2	Brukervennlighet og Grensesnitt	Brukeren skal kunne programmere både med blokker og med kode.
+3	Geometrisk Plotting og Tegning	Tegneroboten skal kunne tegne forhåndsdefinerte geometriske figurer etter presiseringer gitt av brukere.
+4	Filbehandling og Konvertering	Mulighet for å konvertere bitmap og vektorgrafikk (SVG) filer til koordinater som tegnerobot kan forstå.
+5	Testing og Validering	Omfattende testing og validering av både maskinvare og programvare.
+6	Kommunikasjon og Samarbeid	Regelmessig kommunikasjon og samarbeid med oppdragsgiver og veiledere, inkludert ukentlige revisjonsmøter.
+
+For å sikre at alle mål og krav er tydelige og gjennomførbare, er de utformet i henhold til SMART-prinsippene [5] (Spesifikke, Målbare, Oppnåelige, Relevante, Tidsbestemte). Alle målsetningene oppfyller kravene til å være spesifikke, målbare, oppnåelige og relevante. Tidsrammen for oppfyllelse av disse målsetningene vil være prosjektets levetid.
+For å forstå hvordan disse målsetningene kan realiseres, er det viktig å vurdere MakeKit sitt behov og prosjektets relevans innenfor rammen av FNs bærekraftsmål.
+1.4	Oppdragsgivers behov og prosjektets relevans
+MakeKit støtter FNs bærekraftsmål [6]. De har valgt ut følgende mål som styrer deres valg og handlinger: Kvalitetsutdanning, Industri, Innovasjon og Infrastruktur, Ansvarlig forbruk og produksjon, og Klimahandling. 
+    
+Figur 2: FN Bærekrafts ikoner. Kilde: [6].
+Tegneroboten skal bidra til disse målene ved å være et læringsverktøy for programmering, robotikk og geometri, samtidig som den er laget av bærekraftige materialer.
+1.5	Avgrensninger i oppgaven
+Denne rapporten fokuserer på de grunnleggende funksjonene til tegneroboten. Som geometrisk plotting og konvertering av SVG-filer. Den beskriver hvordan micro:bit brukes til å styre tegneroboten, inkludert programmering og integrasjon for å utføre geometrisk plotting. Konvertering av bilder til SVG-filer blir også diskutert, men med hovedvekt på hvordan disse kan tegnes ved hjelp av micro:bit. Oppgaven tar hensyn til de begrensningene som er pålagt av oppdragsgiverens krav, spesielt når det gjelder elektronikk og mekanisk styring som beskrevet i kapittel 2.1. Vurdering av hvordan disse kravene påvirker design og funksjonalitet av tegneroboten blir også belyst.  
+1.6	Struktur på rapporten
+Rapporten er delt inn i flere deler som dekker ulike aspekter ved utviklingen av tegneroboten:
+Introduksjon og Litteraturstudium: Gir innsikt i tidligere arbeider og teorier relevante for prosjektet, og setter rammene for videre diskusjon ved å kontekstualisere prosjektet innenfor eksisterende forskning og teknologi.
+Metodologi: Beskriver metodene brukt for å utvikle prototypen, inkludert en vurdering av metodens styrker og svakheter i forhold til prosjektets mål.
+Systemarkitektur og Implementasjon: Gir en detaljert beskrivelse av systemarkitekturen, inkludert hardware- og softwarekomponenter, med fokus på de kritiske valgene gjort under utviklingen.
+Testing og Resultater: Presenterer og diskuterer testresultatene, med vekt på systemets ytelse i forhold til de satte begrensningene og oppdragsgiverens krav.
+Konklusjon og Fremtidig Arbeid: Oppsummerer funnene og peker på mulige retninger for fremtidig arbeid, inkludert forslag til forbedringer basert på identifiserte begrensninger og testresultater.
+
+
+
+ 
+2	Teori og teknologiske valgmuligheter
+Dette kapittelet drøfter de teoretiske grunnlagene og teknologiske valgmulighetene som er relevante for å løse problemstillingen, samt teste hypotesene og oppnå målsetningene presentert i kapittel 1. Målet er å identifisere de mest passende tilnærmingene for å utvikle en pedagogisk og kostnadseffektiv tegnerobot. Kapittelet er delt inn i tre hovedseksjoner: teknologier for programvareutvikling, teknologier for maskinvareutvikling, og utviklingsmetodikk og prosjektstyring. Hvordan disse teknologiene og metodene bidrar til å teste hypotesene og oppnå målsetningene, vil bli nærmere utledet i kapittel 5.
+2.1	Teknologier for programvareutvikling
+For å utvikle en effektiv og funksjonell tegnerobot, må passende teknologier for støttefunksjoner og programvareutvikling velges. Ulike aspekter av programvareutvikling som kan bidra til å løse prosjektets problemstilling, inkludert simulering, webapplikasjoner, utviklingsmiljøer, programmeringsparadigmer, innebygd programmering, versjonskontrollsystemer og prosjektstyringsverktøy, utforskes.
+2.1.1	Simulering og webapplikasjon
+Simulering:
+Utviklingen av en funksjonell prototype krever at koden fungerer på prototypen. På grunn av prosjektmedlemmenes geografiske spredning og manglende mulighet til å bygge flere prototyper samtidig, er det fordelaktig å utvikle en enkel simulator. En simulator kan teste programkoden og algoritmene for å sikre at de fungerer korrekt. Den kan også vise resultatet visuelt (Figur 3).   
+Figur 3: Simulator og tegnerobot sammenligning. Kilde: Henrik C. Mauroy & Oliver Sokol.
+Webapplikasjon:
+En webapplikasjon kjører på en server og nås gjennom en nettleser [7]. For dette prosjektet kan en webapplikasjon brukes til å styre utviklingen av en simulator. Webapplikasjoner i kombinasjon med verktøy som live reload [8] og lokal hosting [9] på integrerte utviklingsmiljøer (IDE) muliggjør rask kodeiterasjon og oppdatering av kode, slik at nye elementer kan testes og teorier kan utprøves (Figur 4).
+ 
+Figur 4: Representasjon av itererende webapplikasjon utviklings prosess. Kilde: Oliver Sokol	
+Lokal server med automatisk oppdatering: 
+En lokal server med automatisk oppdateringsfunksjonalitet kan brukes for å kjøre og teste webapplikasjoner lokalt. Dette betyr at endringer i koden automatisk reflekteres i nettleseren, noe som gjør utviklingsprosessen mer effektiv og responsiv. Simulatoren gir et visuelt og interaktivt miljø hvor algoritmer og logikk kan testes før de implementeres på den fysiske roboten, noe som sikrer en mer robust og nøyaktig utviklingsprosess.
+2.1.2	Utviklingsmiljø og programmeringsparadigmer
+Integrert Utviklingsmiljø (IDE):
+Et integrert utviklingsmiljø er et verktøy som bidrar til utviklingsprosessen gjennom funksjonaliteter som feilsøking og kode testing [10]. Det kan også inkludere verktøy for å hoste en webside lokalt, samt live reload som oppdaterer webapplikasjonen hver gang filer i prosjektet endres. 
+Programmeringsparadigmer:
+•	Objektorientert Programmering: Bruker objekter som inneholder data og funksjoner. [11]. Hver figur kan oppfattes som et objekt med verdier som posisjon, størrelse og rotasjon, samt funksjoner for hvordan figurer skal tegnes.
+
+•	Prosedyrisk Programmering: Fordeler kode på prosedyrer som kaller hverandre for å skifte tilstander i programmets atferd [11]. Passer godt til utviklingen av et system hvor figurer kan legges i en rekke og tegnes etter brukerens instruksjoner. 
+
+•	Flerparadigme Programmering: Kombinerer flere paradigmer for å organisere kode for å oppnå forskjellige mål [12]. Bruker både objektorientert programmering for spesifikke geometriske strukturer og prosedyrisk programmering for tilstandshåndtering og hierarkisk utføring av funksjoner og kodeblokker.
+
+•	Innebygd Programmering: Omfatter kode skrevet spesielt for maskinvare og integrerte mekaniske komponenter. Må ta hensyn til maskinvarens begrensede spesifikasjoner og sanntidssystemer [13]. Mikrokontrollere som er bygget for generell programmering tilbyr en form for oppstartsfunksjon [14] og loop-blokk [15] som eksekverer kode ved oppstart og fortsetter å gjenta løkken til programmet er slått av eller løkken avsluttes. 
+
+Statisk Kodeanalyse:
+For å sikre høy kodekvalitet og tidlig oppdagelse av feil benyttes statisk kodeanalyse. Dette innebærer å analysere koden uten å kjøre den, noe som muliggjør identifisering av syntaksfeil, kodeproblemer og stilbrudd tidlig i utviklingsprosessen. Ved å konfigurere verktøy for statisk kodeanalyse til å sjekke for en rekke potensielle problemer, sikres at koden følger bestemte stilarter og praksiser.
+2.1.3	Versjonskontroll
+Versjonskontrollsystemer lagrer forskjellige versjoner av koden, noe som gjør det mulig å holde oversikt over hvordan en kodebase utvikler seg (Figur 5), utvide til flere versjoner av koden ved implementering av forskjellige funksjoner, og gå tilbake til tidligere versjoner ved feil [16]. Flere tilbydere på nett leverer tjenester for versjonskontroll, hvor koden kan deles med andre utviklere og gjennomgås i en nettleser.
+ 
+Figur 5: Representasjon av versjonskontroll. Kilde: [17].
+2.1.4	Prosjektstyringsverktøy
+Agile og iterative metoder kan nyttiggjøre seg av oversikt over prosesser og arbeid. Dette oppnås ved bruk av verktøy eller plattformer som gjør det mulig å planlegge og fordele oppgaver, eierskap og oversikt. Verktøyet må tilpasses til prosjektstyring og være oversiktlig og enkel i bruk. 
+2.1.5	Vektorgrafikk
+Vektorgrafikk fremstiller digitale bilder ved bruk av geometrisk definerte punkter, linjer og figurer. Disse bildene inneholder matematiske formler som rendrer innholdet, i motsetning til bitmap-grafikk som lagrer et grid av pikselverdier. En sammenlikning av formatene vises i Figur 6. Fordelen med vektorgrafikk er at bildene beholder oppløsningen uansett zoom-nivå [18].
+Teknikken anvendes i flere filtyper, som ofte inneholder både koordinater og instruksjoner for matematiske formler mellom punktene. Vektorgrafikk brukes mye på internett og i dokumenter [19].
+Et særtrekk ved vektorgrafikk er at figurer, linjer og punkter representeres som individuelle komponenter, noe som gjør filene lette å manipulere.
+Figur 6 illustrerer forskjellen på bitmap- og vektorgrafikk:
+
+ 
+Figur 6: Bilde av forskjell mellom bitmap og vektorgrafikk. Kilde: [20].
+Vektorgrafikkens egenskaper, spesielt dens evne til å beholde oppløsningen og enkel manipulering, er sentrale for å kunne omforme digitale bildefiler til presise fysiske tegninger.
+Programvare er en kritisk komponent, men det er også viktig å forstå hvilke teknologier som er nødvendige for maskinvareutvikling av en tegnerobot.
+2.2	Teknologier for maskinvareutvikling
+Dette underkapittelet drøfter teknologier som er nødvendige for å realisere tegnerobotens maskinvare. Fokus er på mekanisk bevegelse, motorstyring og elektronisk kontroll.
+2.2.1	Bevegelse av tegneredskap i planet
+For å kunne bevege tegneredskapet presist i planet, kan kartesiske koordineringssystemer som de som brukes i 3D-printere være relevante. I slike systemer sikres bevegelse i xy-planet gjennom en konfigurasjon der et printhode henger i krysningen mellom to vinkelrette bommer (Figur 7). Dette prinsippet er kjent for sin nøyaktighet og stabilitet, og kan sammenlignes med leketøyet Etch-A-Sketch [21], hvor posisjonering skjer gjennom bevegelse av to ortogonale bommer styrt med dreieknapper se Figur 1 i Vedlegg F. For en mer detaljert forklaring av teorien til 3D-printere relatert til prosjektet henvises det til kap. 1 i Vedlegg F.
+ 
+Figur 7: Bilde av en kartesisk 3D-printer av typen FDM. I krysningen mellom de to bommene i metall henger printhodet. Kilde: Henrik C. Mauroy.
+2.2.2	Steppermotor og stepper-driver
+Steppermotorer kan være en egnet løsning for presis kontroll av bevegelser. Disse motorene fungerer ved å rotere akslingen i diskrete steg ved å til- og frakoble strøm til interne elektromagneter. Disse motorene tilbyr høy vinkeloppløsning, noe som er avgjørende for nøyaktige bevegelser. For å styre steppermotorene kan driverkretser benyttes, som gir finjustering av motorens bevegelser gjennom mikrostepping.
+Figur 5 i Vedlegg F tydeliggjør den interne mekanismen i slike motorer. A4988 stepper-drivere kan benyttes for å styre steppermotorene. Disse driverne kontrollerer strømmen til motoren og støtter funksjoner som mikrostepping, som kan redusere vibrasjon og øke dreiemomentet. Ulike mikrostep-innstillinger som 1/4- og 1/16-stepping kan vurderes for å finne en balanse mellom nøyaktighet og bevegelseshastighet. For en mer detaljert forklaring av teorien til steppermotorer henvises det til kap. 2 i Vedlegg F.
+2.2.3	Mikrokontroller
+3D-printere benytter ofte en mikrokontroller for styring av motorene. Dette er enkle programmerbare prosessorer med periferi-tilkoblinger for å kunne lese av sensorer eller styre brytere og motorer [22]. Valg av mikrokontroller er kritisk for både nøyaktighet og brukervennlighet i prosjektet. Det finnes ulike typer med fordeler og ulemper. Noen har såkalte GPIO-utganger som er elektriske porter som kan fungere som både input og output. Det er ønskelig med en mikrokontroller som er enkel å programmere samtidig som den benytter GPIO og I2C-protokollen for å kontrollere eksterne enheter som steppermotorer. Lav pris, lavt strømforbruk og liten formfaktor er også fordeler.
+2.2.4	Elektroniske komponenter og koblinger
+For å sikre tilstrekkelig tilkoblingsmuligheter og kontroll over flere steppermotorer samtidig, kan bruk av I/O-ekspandere utforskes. Disse komponentene gjør det mulig å utvide antall tilgjengelige input og output for en mikrokontroller, noe som muliggjør mer komplekse systemer uten å komplisere det elektriske oppsettet unødvendig. Kommunikasjonen mot I/O-ekspandere foregår gjerne via I2C-protokollen. Denne forklares nærmere i kap. 5 i Vedlegg F.
+2.2.5	Løftemekanisme for tegneroboten
+Løftemekanismen er en kritisk komponent for å sikre at tegneroboten kan heve og senke tegneredskapet nøyaktig, noe som er nødvendig for å tegne presise geometriske figurer. En vanlig løsning er å bruke en servomotor, som kan kontrollere bevegelsen med høy presisjon.
+Servomotorer er små, kompakte enheter som kan rotere til bestemte vinkler basert på et kontrollsignal. De er spesielt nyttige i applikasjoner hvor presis kontroll over posisjon er nødvendig, slik som i modellfly, robotarmer, og selvfølgelig tegneroboter. En typisk servomotor kan rotere opp til 180 grader og gir tilstrekkelig kraft til å håndtere små mekaniske belastninger.
+Servomotorens evne til å bevege tegneredskapet opp og ned med høy presisjon er avgjørende for å oppnå nøyaktige tegninger, spesielt når det er behov for å løfte pennen mellom streker for å unngå uønskede linjer.
+2.2.6	Matematikk og algoritmer i bevegelse
+Lineær bevegelse av tegneredskapet oppnås ved å styre farten til steppermotorene på en koordinert måte. En vanlig teknikk for styringen er lineær interpolering, som beregner koordinatene langs en linje definert av et start- og et sluttpunkt. For en gitt x-verdi i intervallet [x0, x1] vil tilhørende y-verdi beregnes med likningen for stigningstall. For en mer detaljert forklaring av teorien henvises det til kap. 4 i Vedlegg F.
+2.3	Teoretisk drøfting av utviklingsmetoder
+I arbeidet med å undersøke om en tegnerobot kan omforme vektorgrafikk til en fysisk tegning på en pedagogisk og kostnadseffektiv måte, er valg av utviklingsmetoder vesentlig. Dette underkapitlet vurderer sentrale metoder og praksiser fra forskjellige utviklingsmetoder og deres potensielle effekt på prosjektet.
+2.3.1	Iterasjon og inkrementell forbedring
+Iterasjon og inkrementell forbedring er grunnleggende prinsipper i moderne utviklingsprosesser. Utviklingen skjer gjennom gjentatte sykluser (iterasjoner), hvor hver syklus resulterer i en inkrementell forbedring av produktet [28].
+ 
+Figur 8: Den iterative forbedringsyklusen. Kilde: [24]
+Iterasjonsprosessen gir mulighet for kontinuerlig forbedring og tilpasning basert på tilbakemeldinger og endrede krav, noe som er spesielt relevant for prosjekter med høye krav til fleksibilitet og tilpasning [28]. Her er noen av de viktigste praksisene under iterasjon og inkrementell forbedring:
+•	Iterasjon og Inkrementell Utvikling: Gjennom utvikling av små, testbare deler av programvaren, kan feil raskt identifiseres og justeres etter tilbakemeldinger fra brukerne. Ved å anvende mikrokontroller-teknologi og utvikle egnet algoritme for motorstyring, sikres at programvaren nøyaktig kan tegne de geometriske figurene som brukeren spesifiserer [31]. Hyppige iterasjoner gjør det mulig å kontinuerlig forbedre og tilpasse funksjoner, noe som bidrar til å møte brukerens behov og forventninger på en mer nøyaktig måte.
+
+•	Kontinuerlig Forbedring: Kontinuerlig forbedring er kritisk for å opprettholde en høy standard på programvaren. Regelmessige evalueringer og tilbakemeldinger sikrer kontinuerlig forbedring av programvaren [26]. Dette innebærer også å evaluere prosesser og arbeidsmetoder for å finne mer effektive måter å arbeide på, som igjen fører til et bedre resultat. 
+•	Tilbakemeldingssløyfer: Tilbakemeldingssløyfer sikrer at produktet oppfyller brukernes behov. Hyppige og systematiske tilbakemeldinger fra brukere gir innsikt i hvordan programvaren kan forbedres for å gjøre læringen mer engasjerende og effektiv [27]. Regelmessige brukertester, spørreundersøkelser og analyser av brukerdata er viktige for å identifisere og prioritere forbedringsområder. 
+
+•	Kvalitetssikring og Testing: Kvalitetssikring og testing som integrerte deler av utviklingsprosessen vil sikre at programvaren fungerer som forventet. Dette inkluderer en rekke tester, som funksjonell testing, systemtesting, integrasjonstesting og brukertesting, for å identifisere og rette problemer før programvaren overleveres [28]. Ved å inkludere mikrokontroller-teknologi og algoritmer for motorstyring, sikres at systemet kan levere nøyaktige tegninger [27, 23]. Det vil sikre at alle aspekter av programvaren blir grundig testet, inkludert kanttilfeller og uforutsette bruksmønstre, noe som vil øke programvarens pålitelighet og brukeropplevelse [28]. 
+
+•	Kontinuerlig Integrasjon og Levering (CI/CD): CI/CD-prinsipper innebærer automatisk integrering av kodeendringer og leveranse til produksjon på en effektiv måte [29]. Dette sikrer at programvaren alltid er i en fungerende tilstand og at nye funksjoner raskt kan distribueres til brukerne. Ved å implementere CI/CD i utviklingsprosessen, kan hyppige oppdateringer og forbedringer integreres uten å forstyrre eksisterende funksjonalitet. Dette er spesielt viktig i et prosjekt som involverer mange iterative forbedringer basert på tilbakemeldinger fra brukerne. Dette gir en jevnere arbeidsflyt og høyere effektivitet i koding av løsningen [26].
+
+•	Sprint Review og Sprint Retrospective: Faste møter som vurderer siste sprint og planlegger fremtidige. Denne tilnærmingen muliggjør en jevnere arbeidsflyt og fremmer kontinuerlig forbedring. Kontinuerlige evalueringer gir også teamet mulighet til å identifisere og adressere eventuelle problemer eller justeringer som trengs, noe som igjen fører til høyere kvalitet og bedre tilpasning til endringer [25].
+
+•	Produktbacklog: Produktbacklog er en essensiell komponent i mange utviklingsprosesser, men en strukturert og statisk backlog kan ha begrensninger når det gjelder fleksibilitet og sanntidsoversikt.
+
+2.3.2	Brukersentrert utvikling
+Brukersentrert utvikling setter sluttbrukeren i sentrum for hele utviklingsprosessen. Dette innebærer å fokusere på å forstå brukernes behov og forventninger, og sikre at produktet designes og utvikles med fokus på brukervennlighet og brukeropplevelse. Metoder som brukeropplevelsesdesign (UX) og designtenkning er essensielle for å sikre at produktet oppfyller brukernes behov på en effektiv og intuitiv måte. Videre undersøkes hvordan disse metodene kan anvendes i prosjektet for å maksimere brukertilfredshet og pedagogisk verdi.
+ 
+Figur 9: Diagram av brukersentrert design konsepter. Kilde: [30]
+•	Brukeropplevelse (UX) Design: Brukeropplevelse (UX) design fokuserer på å forbedre brukertilfredsheten ved å forbedre anvendeligheten, tilgjengeligheten og fornøyelsen i interaksjonen mellom brukerne og produktet. Dette innebærer brukersentrerte designmetoder for å sikre at produktet er intuitivt og oppfyller brukernes behov og forventninger. For produktet vil det kunne gjennomføres brukertesting både internt og med skoleelever i målgruppen for å sikre at grensesnittet er brukervennlig og at produktet gir en positiv læringsopplevelse, som er essensielt for den pedagogiske verdien [31].
+
+•	Designtenkning: Designtenkning er en brukerfokusert tilnærming til problemløsning som fokuserer på empati, ideasjon (begrepsforming), prototyping og testing. I dette prosjektet betyr dette å kunne forstå brukernes behov og iterativt utvikle løsninger som vil kunne gi verdi og tilfredsstille disse behovene. Ved å benytte designtenkning vil teamet kunne utvikle funksjoner og løsninger som er mer tilpasset brukernes faktiske behov og pedagogiske mål [32].
+
+2.3.3	Team og prosjektstyring
+Effektiv team- og prosjektstyring er avgjørende for suksessen til ethvert utviklingsprosjekt. Prinsipper som selvorganiserende team, verdibasert leveranse, fleksibilitet, og visuell styring bidrar til å skape et arbeidsmiljø som fremmer samarbeid, innovasjon og effektivitet. I tillegg er prinsipper som flytstyring, pull systemer, og måling av ledetid og syklustid viktige for å opprettholde en jevn og effektiv arbeidsflyt. Dette kapittelet drøfter hvordan disse prinsippene kan implementeres for å optimalisere utviklingsprosessen for tegneroboten, og dermed sikre at prosjektet leverer verdi til brukerne på en effektiv måte.
+
+•	Sprintplanlegging: er en metode som involverer planlegging av arbeid i faste sprinter, vanligvis over en periode på to til fire uker. Denne tilnærmingen gir struktur og forutsigbarhet, men kan også medføre utfordringer når det gjelder fleksibilitet og tilpasningsevne til endringer i prosjektet [25].
+
+•	Selvorganiserende Team: Selvorganiserende team fremmer autonomi og ansvar blant teammedlemmene, noe som kan føre til mer engasjerte og produktive team. Effektivt samarbeid og kommunikasjon i teamet er essensielt for å oppnå gode resultater [25].
+ 
+•	Verdi- og Risikobasert Leveranse: Verdibasert leveranse innebærer prioritering av oppgaver og funksjonaliteter basert på verdien de tilfører sluttbrukerne. Dette vil kunne sikre en effektiv bruk av ressurser, og at det ferdige produktet oppfyller de viktigste behovene og forventningene. Ved å prioritere leveranser basert på verdi, kan teamet sikre at utviklingsinnsatsen gir maksimal nytte for brukerne og prosjektets mål [29].
+
+•	Risiko- og usikkerhetsstyring: er også essensielt i komplekse utviklingsprosjekter. Dette innebærer en systematisk identifisering, vurdering og håndtering av risikoer for å kunne redusere deres påvirkning på prosjektet. Regelmessige risikovurderinger vil kunne gjennomføres for å prioritere utviklingen av kjernefunksjoner som direkte støtter opp under sluttbrukernes læringsbehov og produktets pedagogiske mål [33].
+
+•	Fleksibilitet og Tilpasningsevne: Fleksibilitet i utviklingsprosessen innebærer evnen til å tilpasse seg endringer raskt og effektivt, basert på ny innsikt eller tilbakemeldinger fra sluttbrukerne. Fleksibilitet gjør det mulig å justere prioriteringer og utviklingsfokus for å bedre møte brukernes behov og forventninger, noe som vil kunne forbedre både brukeropplevelse og produktkvalitet [34].
+
+•	Transparens og Visibilitet: Transparens og visibilitet i utviklingsprosessen sikrer at alle teammedlemmer og interessenter har tilgang til relevant informasjon om prosjektets status og fremdrift. Dette fremmer samarbeid og tillit innen teamet og med eksterne interessenter. Ved å opprettholde høy grad av transparens kan teamet identifisere og løse problemer raskere, samt sikre at alle arbeider mot de samme målene. Dette bidrar til en mer pålitelig utviklingsprosess og sikrer at kravspesifikasjonene blir overholdt [35].
+
+•	Flytstyring: Flytstyring fokuserer på å opprettholde en jevn og forutsigbar arbeidsflyt. Dette oppnås ved å begrense mengden arbeid som er i gang samtidig (WIP, Work In Progress), identifisere flaskehalser og kontinuerlig optimalisere prosessene for å øke effektiviteten. Dette innebærer å redusere ventetid og maksimere produktiviteten. Gjennom effektiv flytstyring kan teamet levere høyere kvalitet på kortere tid, noe som forbedrer både effektiviteten og påliteligheten til programvaren [36].
+
+•	Pull Systemer: Pull systemer innebærer at arbeid trekkes inn i prosessen basert på kapasitet og behov, i motsetning til at arbeid skyves gjennom en forhåndsdefinert plan. Dette sikrer at teamet arbeider med de mest prioriterte oppgavene til enhver tid. Ved å bruke pull systemer kan teamet bedre balansere arbeidsbelastningen og unngå overbelastning, noe som øker effektiviteten og kvaliteten på leveransene [36].
+
+•	Ledetid og Syklustid: Måling av ledetid (total tid fra oppgave opprettes til den er fullført) og syklustid (tid brukt på selve arbeidet) gir innsikt i hvor effektivt utviklingsprosessen fungerer. Dette hjelper teamet med å identifisere flaskehalser og forbedringsområder. Ved å analysere disse målingene vil teamet kontinuerlig kunne forbedre prosessen og sikre raskere og mer pålitelige leveranser [37].
+
+•	Visuell Styring: Visuell styring innebærer bruk av visuelle verktøy som tavler eller diagrammer for å overvåke og administrere arbeidsflyt og prosjektstatus. Dette gir teammedlemmene en klar oversikt over hva som er påbegynt, pågående og ferdigstilt, og gjør det lettere å identifisere og adressere problemer raskt. Ved å visualisere arbeidsflyten kan teamet bedre planlegge og koordinere oppgaver, samt identifisere og fjerne flaskehalser i prosessen [38]. Gjennom drøfting av de teoretiske prinsippene blir det klart hvordan disse kan anvendes i utviklingen av tegneroboten. Valg av en smidig utviklingsmetode gir muligheten til å kombinere det beste fra ulike tilnærminger, noe som vil støtte opp under målsettingen om å levere et pedagogisk verktøy [33]. 
+
+Ved å anvende disse prinsippene og metodene systematisk, sikres en effektiv, fleksibel og kvalitetsorientert gjennomføring av prosjektet. 
+
+Dette kapittelet har presentert en rekke teknologier og metoder som er relevante for å utvikle en effektiv og pedagogisk tegnerobot. I neste kapittel velges de mest passende metodene og teknologiene, basert på disse vurderingene.
+ 
+3	Valg av teknologi og utviklingsmetode
+Dette kapittelet forklarer de teknologiske og metodiske valgene som ble gjort for å realisere tegneroboten, med henvisning til problemstillingen, hypotesene og målsetningene fra kapittel 1. Valgene er basert på nøye vurderinger av flere alternativer, med fokus på å sikre at tegneroboten kan omforme vektorgrafikk til en fysisk tegning på en pedagogisk og kostnadseffektiv måte. I noen tilfeller ble valget av teknologi tatt av oppdragsgiver MakeKit, og dette vil også bli reflektert i gjennomgangen. Hvordan hypotesene relaterer seg til de valgte teknologiene vil bli vist i slutten av hver seksjon. Tjenester og systemer som er blitt brukt av gruppen er listet i Vedlegg D.
+3.1	Valg av programvareteknologi
+Her presenteres de begrunnede valgene av programvareteknologier som er brukt i prosjektet, med fokus på hvilke hypoteser de støtter.
+Valg av Programmeringsspråk: JavaScript og TypeScript 
+JavaScript og TypeScript ble valgt på grunn av deres utbredelse, stabilitet og sterke støtte i utdanningssektoren. JavaScript gir mulighet for rask utvikling og testing på grunn av sin prototypbaserte natur, mens TypeScript gir statisk typing som øker kodekvaliteten.
+JavaScript ble brukt som hoved-programmeringsspråk for å utvikle simulatoren. Det er et dynamisk typet, prototypebasert, objektorientert programmeringsspråk som samsvarer med ECMAScript-standarder. Webbrowseren har innebygde JavaScript-motorer som eksekverer JavaScript-kode på klientsiden, noe som gjorde det mulig å lage dynamiske og interaktive websider for simulatoren [39]. 
+TypeScript ble brukt i sammenheng med MakeCode-plattformen. MakeCode bruker et subset av TypeScript kalt Static TypeScript, som mangler en del funksjonalitet og krever tilpasning av koden [40].
+
+Valg av MakeCode-plattformen
+MakeCode ble valgt for sitt intuitive grafiske brukergrensesnitt og støtte for blokkprogrammering, som er ideell for undervisningsformål. Plattformen gjør det også enkelt å lage utvidelser som kan skreddersys til spesifikke behov. Disse utvidelsene heter “Extensions” [41] og brukes omfattende til å utvide funksjonaliteten på plattformen.
+
+Utvikling av Simulator 
+For å muliggjøre raskere prototyping ble en simulator utviklet ved hjelp av HTML, CSS og JavaScript. Dette for å kunne teste algoritmer før implementering på maskinvare. Simulatoren gir også et godt utgangspunkt for utvikling av kode som kan brukes på MakeCode plattformen. Dette tillater også programvare utvikling mens det ventes på progresjon i maskinvare utvikling.
+
+Versjonskontroll: Git og GitHub 
+Versjonskontroll ble håndtert med Git og GitHub for å sikre at koden kunne utvikles og testes uten tap av tidligere versjoner.
+
+HTML & CSS 
+HTML og CSS ble brukt for å strukturere og style simulatoren, med et enkelt oppsett med to Canvas-elementer. Canvas-elementene gir et punktgrafikklerret som brukes til å presentere visuelle bilder og tillate skripter for å manipulere punktgrafikklerretet.
+
+
+Programvareteknologier og deres relasjon til hypotesene:
+Tabell 4 under gir en oversikt over de valgte programvareteknologiene og deres relevans til hypotesene.
+Tabell 4: programvarekomponenter og relasjon til hypoteser
+Teknologi	Relevans til Hypotese
+Programmeringsspråk: JavaScript	Hypotese 2, 4
+Programmeringsspråk: TypeScript	Hypotese 2, 4
+MakeCode Plattform	Hypotese 2, 4
+Simulatorutvikling (HTML, CSS, JS)	Hypotese 2, 4
+Versjonskontroll: Git og GitHub	Hypotese 4, 5
+
+3.2	Teknologivalg maskinvare
+Her presenteres de begrunnede valgene av de fysiske komponentene, valgene av programvareteknologier, hvilken utviklingsmetode som ble brukt samt arbeidsfordelingen.
+Valg av Mikrokontroller: micro:bit og Arduino
+MakeKit har valgt BBCs micro:bit som kjernekomponent i sine byggesett. Derfor ble det uaktuelt å velge andre mikrokontrollere for tegneroboten. Micro:bit gir klare fordeler og er spesielt egnet til MakeKits formål. MakeCode-plattformen fra Microsoft er laget for micro:bit
+og tilbyr programmering med høyere nivå språk eller visuelle blokker. Dette gjør den ideell for undervisning i programmering og robotikk, som er viktig for prosjektets pedagogiske mål. MakeCode har også et bredt utvalg av eksterne komponenter og et robust kodebibliotek.
+Selv om ingen andre mikrokontrollere ble vurdert for tegneroboten, ble Arduino-plattformen brukt i starten av utviklingen. Arduino ble valgt for å utvikle bevegelsesalgoritmene før de ble omskrevet for MakeCode. Arduino har fordelen av et rikt utvalg av open source biblioteker, inkludert styring av steppermotorer, som micro:bit mangler.
+ 
+Valg av steppermotorer: 28BYJ-48
+MakeKit valgte 28BYJ-48 steppermotorer på grunn av deres høye vinkeloppløsning og lave pris. Motoren har ulemper som lav rotasjonshastighet, men dette kan kompenseres for ved drift av større trinsehjul som øker den effektive rotasjonshastigheten og dermed forbedrer dreiemomentet. 
+
+Valg av stepper-drivere: A4988
+A4988 stepper-drivere ble også valgt av MakeKit. Dette valget har de begrunnet med kostnadseffektivitet og funksjoner som mikrostepping, som kan redusere vibrasjon og øke dreiemomentet. Disse driverne tillater finjustering av motorens bevegelser, noe som er essensielt for å oppnå nøyaktige tegninger. Driverne har også en enable-pin som kan slå av og på "hold"-dreiemomentet, noe som er praktisk når tegnehodet skal flyttes og steppermotorene må rotere fritt.
+
+Valg av Servomotorer for Løftemekanisme
+Løftemekanismen for pennen bruker en servomotor for å bevege pennen opp fra og ned på tegneunderlaget. MakeKit benytter egne 9 gram hobbyservoer i alle sine byggesett med servo. Disse er av typen SG90 med 180 grader rotasjon og en trekkraft på 1,5 kg/cm som er mer enn nok for å løfte en penn. MakeKit har valgt denne for dette prosjektet. En alternativ løsning kunne vært å benytte steppermotorer eller lineære ball-screw-mekanismer for bevegelse opp og ned. Disse løsningene hadde beveget tegneredskapet mer presist opp og ned og det ville åpnet opp for å kalibrere for ujevne underlag. MakeKit levert ikke selve løftemekanismen for dette prosjektet. Flere forskjellige fritt tilgjengelige modeller ble vurdert, og en modell som kunne produseres på en privateid 3D-printer og integreres med tilgjengelig servomotor, ble valgt ut.
+
+Valg av I/O-utvidelseskort: Allegro PCA9557
+MakeKit har valgt Allegro PCA9557 for å utvide antall I/O-porter på micro:bit via I2C-protokollen. Dette gjorde det mulig å ha flere tilkoblinger uten å komplisere systemet.
+Maskinvarekomponenter og deres relasjon til hypotesene
+Tabell 5 gir en oversikt over de valgte maskinvarekomponentene og deres relevans til hypotesene.
+Tabell 5: Maskinvarekomponenter og relasjon til hypoteser
+Teknologi	Relevans til Hypotese
+Mikrokontroller: micro:bit og Arduino	Hypotese 1, 2, 3
+Steppermotor: 28BYJ-48	Hypotese 1, 3
+Stepper-driver: A4988	Hypotese 1, 3
+Servomotorer for Løftemekanisme	Hypotese 1, 3
+I/O-utvidelseskort: Allegro PCA9557	Hypotese 1, 3
+
+3.3	Utviklingsmetode
+Dette underkapittelet utforsker hvilke metoder og arbeidsprosesser som ble valgt og benyttet underveis i prosjektet, samt hvilke som ble valgt bort, basert på teoretisk drøfting i kapittel 2.3.
+3.3.1	Scrumban fra start
+I starten av prosjektet ble Scrumban valgt, basert på hvilken metode som passet teamet best. Dette valget ble tatt før drøftingen av metoder i kapittel 2.3. Scrumban kombinerer elementer fra Scrum og Kanban, og balanserer strukturell styrke med fleksibilitet. Dette gir rom for å møte stadig endrede prosjektforutsetninger. Tabell 6 viser metodene fra kapittel 2.3 som er inkludert i Scrumban.
+Tabell 6: Metoder i Scrumban
+Praksis	Beskrivelse
+Iterasjon og Inkrementell Utvikling	Kritisk for rask identifisering og retting av feil, samt kontinuerlig tilpasning basert på tilbakemeldinger.
+Kontinuerlig Forbedring	Regelmessige evalueringer og tilbakemeldingssløyfer for å sikre høy kvalitet.
+Kvalitetssikring og Testing	Omfattende testing for å sikre pålitelighet.
+Kontinuerlig Integrasjon og Levering (CI/CD)	Hyppige oppdateringer uten å forstyrre eksisterende funksjonalitet.
+Brukeropplevelse (UX) Design	For å sikre at produktet oppfyller brukernes behov.
+Designtenkning	Iterativ utvikling av løsninger som tilfredsstiller brukernes behov.
+Selvorganiserende Team	Autonomi og ansvar blant teammedlemmene.
+Verdi- og Risikobasert Leveranse	Prioritere oppgaver basert på verdi og risiko.
+Fleksibilitet og Tilpasningsevne	Håndtere endringer raskt og effektivt.
+Transparens og Visibilitet	Alle har tilgang til relevant informasjon.
+Flytstyring og Pull Systemer	Opprettholde jevn arbeidsflyt og unngå overbelastning. 
+Sprintplanlegging	Arbeid planlegges i faste sprinter.
+Sprint Review og Sprint Retrospective	Faste møter hvor siste sprint vurderes.
+Produktbacklog	Prioritert liste over oppgaver i et prosjekt, og fungerer som en arbeidsordre for teamet.
+
+Scrumban ble brukt i prosjektets tidlige fase for planlegging, oppgavestyring og fremdrift. Ukentlige revisjonsmøter evaluerte fremgang, diskuterte utfordringer og justerte planen. Møteagendaen inkluderte gjennomgang av siste møtereferat, diskusjon av hva som fungerte bra og mindre bra, drøfting av problemstillinger og dokumentasjon, oppdatering av arbeidsflyt og oppgaver i Azure DevOps, samt evaluering av prosjektets fremdrift. Sprint planning og review ble også inkludert i møtene når det var relevant. I et Scrumban-drevet prosjekt er klar rollefordeling viktig. Teamet fordelte roller basert på individuell ekspertise, noe som sikret effektiv fremdrift og bidro til læring og faglig vekst for alle medlemmer.
+
+3.3.2	Overgang fra Scrumban til Kanban
+Mot slutten av prosjektet ble behovet for en mer individuell og strømlinjeformet arbeidsflyt identifisert. Dette skulle håndtere gjenværende oppgaver og sikre høy effektivitet. Basert på tilbakemeldinger og risikoelementer som stoppet arbeidsflyten, ble det besluttet å bytte fra Scrumban til Kanban. Kanbans fokus på kontinuerlig levering og fleksibel håndtering av oppgaver passet bedre til prosjektets behov i sluttfasen. Kanban ga en mer visuell og lettforståelig oversikt over arbeidsflyten, noe som gjorde det enklere å identifisere flaskehalser og forbedre prosessene. Kanban tillot teamet å håndtere endringer og uforutsette utfordringer mer effektivt, noe som var avgjørende for å få produsert så mye som mulig før tidsfristen. Tabell 7 viser metodene som ble valgt bort ved overgangen til Kanban, mens Tabell 8 viser de nye metodene som erstattet disse.
+Tabell 7: Metoder valgt bort ved overgangen til Kanban.
+Metoder valgt bort	Beskrivelse
+Sprintplanlegging	Fra faste sprinter til kontinuerlig arbeidsflyt hvor oppgaver trekkes inn etter behov.
+Sprint Review og Sprint Retrospective	Faste møter erstattet med kontinuerlige evalueringer i ukentlige revisjonsmøter.
+Produktbacklog	Fra strukturert produktbacklog til dynamisk Kanban-tavle som viser oppgavestatus i sanntid.
+
+Tabell 8: Metoder valgt inn ved overgangen til Kanban.
+Metoder valgt inn	Beskrivelse
+Visualisering av oppgaver	Oppgaver visualisert på en Kanban-tavle i Azure DevOps, kategorisert som "To Do", "In Progress" og "Done".
+Pull System	Oppgaver trukket inn basert på kapasitet og prioritet, noe som reduserte overbelastning og forbedret effektiviteten.
+Kontinuerlig Levering	Kontinuerlig levering av forbedringer og nye funksjoner, øker smidighet og evne til å respondere på endringer.
+
+3.3.3	Risikoanalyse
+Risikovurdering og -håndtering var viktige faktorer i valget av Kanban. Risikoer ble regelmessig gjennomgått i henhold til risikoanalysen fra forprosjektet i Vedlegg B og identifiserte punkter ble oppdatert og fulgt opp med en gang de oppstod. Tabell 9 viser eksempler på avdekkede risikoelementer og tiltak som ble gjort underveis. Utvidet oversikt finnes i prosessdokumentet i Vedlegg E.
+Tabell 9: Risikoer, konsekvenser, tiltak og læringspunkter identifisert i prosjektet.
+Risiko	Konsekvens	Tiltak	Status	Læringspunkt
+Gruppemedlem har legitimt fravær i tre uker	Arbeidsoppgaver må delegeres	Planleggingsmøter for å delegere oppgaver og informere veiledere	Ferdig/løst	God kommunikasjon og forhåndsplanlegging bidro til suksess
+Påskeferien stoppet prosjektflyten	Arbeidsprosessen ble betydelig forsinket	Forlenge sprint, prioritere arbeid som haster	Ferdig/løst	Viktigheten av å forutse ferieperioder og hensynta at arbeid ikke blir gjort
+
+
+3.4	Arbeids og rollefordeling
+Fordelingen av arbeidsoppgaver og roller i prosjektet var som følger:
+Henrik: Ansvarlig for maskinvareutvikling, inkludert oppsett og testing av motorer og stepper-drivere.
+Oliver: Ansvarlig for programvareutvikling, inkludert utvikling av simulator til testing og programmering i MakeCode-plattformen.
+Mads: Ansvarlig for prosjektstyring, dokumentasjon og samordning med oppdragsgiver og veiledere.
+
+Dette kapittelet har gitt en oversikt over valg av teknologi og utviklingsmetoder. Det neste kapittelet vil beskrive systemarkitekturen og implementasjonsstrategiene og detaljere den tekniske oppbygningen og programvarearkitekturen
+
+ 
+4	Systemarkitektur og implementasjon
+Dette kapittelet gir en oversikt over systemarkitekturen og implementasjonsstrategiene for tegneroboten (Figur 10). Det beskriver tekniske spesifikasjoner, programvarearkitektur og fysisk konstruksjon. Systemet støtter hypotesene og målsetningene fra kapittel 1.
+
+ 
+Figur 10: Overordnet domenemodell av systemet som viser hvordan prosjektet henger sammen. Kilde: Oliver Sokol
+
+4.1	Tegnerobot
+Tegneroboten opererer autonomt, mottar og utfører tegnekommandoer via MakeCode-plattformen. Systemet, vist i Figur 11, har en mekanisk struktur med en ramme og to ortogonale bommer som beveger tegneredskapet. Bommene styres av steppermotorer og et trådsystem, mens micro:bit beregner bevegelser og genererer pulser.
+ 
+Figur 11: Domenemodell av tegneroboten i form av et UML-diagram med relasjonene indikert.
+
+Elektronikk
+Figur 11 viser oppbygningen av elektronikken til tegneroboten. micro:bit leverer styringssignaler til stepper-driverne A4988X og A4988Y, som begge krever egen strømforsyning. StepperX og StepperY refererer til steppermotorene, mens en servo for å løfte tegneredskapet er tilkoblet en signalutgang på micro:bit.
+.
+
+ 
+Figur 12: De elektriske komponentene og deres tilkoblinger.
+Kretstegning av elektronikken
+Elektronikken er koblet som vist i Figur 1 i Vedlegg G. Tre DC-DC buck-omformere transformerer 12 V spenning ned til 6,0 V, 5,0 V og 3,3 V for steppermotorene, servomotoren og de logiske komponentene. Stepper-driverne er koblet til 6,0 V for å gi strøm til steppermotorene. Fire strømkabler går fra hver stepper-driver til steppermotorene. Fra micro:bit går to signalkabler til hver stepper-driver for retning og puls, mens servoens styringssignal kommer fra P0 på micro:bit.
+4.2	Programvarearkitektur
+Programvaren er designet for å være robust, modulær og lett å forstå, slik at den kan tilpasses etter behov. Den inkluderer moduler for motorstyring, definisjon av geometriske objekter, I2C -kommunikasjon, mottak av SVG-filer og tegning av SVG-filer lagret på SD-kort. Brukergrensesnittet er utviklet i Microsoft MakeCode, hvor brukere kan lage tegneprogrammer via et drag-and-drop grensesnitt. I vedlegg D finnes systemdokumentasjon av kodebasen, mens Vedlegg M viser brukerdokumentasjonen.
+4.2.1	Programflyt i MakeCode
+Programflyten for et tenkt tegneprogram er vist i Figur 3 i Vedlegg H. Hele programmet er pakket inn i blokken “on start”. Deretter kjøres blokken “Start drawings... push button B”, som venter på at brukeren trykker på knapp B for å starte tegningen. Hver figur-blokk prosesseres deretter sekvensielt, og programmet avsluttes med tilbakemelding til brukeren via LED-displayet på micro:bit. Flytdiagrammet i samme figur viser det samme programmet.
+4.2.2	Bresenham-algoritmen for linjer
+Bresenham-algoritmen tegner rette linjer på et rutenett, vist skjematisk i Figur 13. Hvordan denne algoritmen kan styre steppermotorer presenteres i detalj i kap. 4 i Vedlegg F, der selve algoritmen vises i flytdiagrammet i Figur 1 i Vedlegg H. Kort sagt, beregner algoritmen om neste steg for steppermotorene skal skje langs x- eller y-aksen, samt i hvilken retning. Hvis målpunktet er nådd, returneres false.
+ 
+Figur 13: Diagram som viser pulsene for x- og y-aksen med Bresenham-stepping.
+4.2.3	Pulsgenerator
+Algoritmen for bevegelse med moveHeadTo(x,y) vises i Figur 1 i Vedlegg H, hvor (x,y) er målpunktet. Ved oppstart settes variabler for Bresenham-algoritmen. En while-loop kjører så lenge tegnehodet ikke har nådd målpunktet. For hver iterasjon sjekkes om pulslengdeintervallet er passert. Hvis ja, skrus spenningen til stepper-driverne av eller på basert på variabelen pulseOn. Deretter beregnes neste stepper-bevegelse langs x- og y-aksen. Variablene nextX og nextY beskriver om aksene skal utføre et steg (1 eller -1) eller stå stille (0).
+Hver syklus i while-loopen utføres med intervaller på 400 mikrosekunder. De effektive pulsene for spenning av og på utføres for hver andre syklus. Dette gir en frekvens på maksimalt 
+1/ (400 + 400) us = 1250 Hz. 
+Dersom en akse skal ha kontinuerlig bevegelse vil den derfor kjøres med en frekvens på 1250 Hz. For alle andre tilfeller vil Bresenham-algoritmen beregne pulser med et visst antall sykluser mellomrom. Dette vil i praksis føre til en lavere effektiv fart for steppermotoren. I Figur 13 vises et eksempel på en skrå linje som tegnes på et 10x10 rutenett med de nødvendige pulsene. X-aksen pulses kontinuerlig mens y-aksen har en puls omtrent for hver andre syklus.
+
+4.2.4	I2C-kommunikasjon mot PCA9557
+Protokollen for å sette tilstanden til I/O-portene IO2 og IO5 på PCA9557 utvidelseschipen bruker følgende sekvenser av to tall:
+Oppstart av chip:
+•	0b00000011 =  3 starter oppsett av hvilke porter som er output
+•	0b11011011 = 219 setter hvilke porter som er output, her IO2 og IO5 med bit satt til 0.
+Sette output HIGH:
+•	0b00000001 = 1 setter tilstanden til portene
+•	0b00100100  = 4 setter IO2 og IO5 HIGH
+Sette output LOW:
+•	0b00000001 = 1 setter tilstanden til portene
+•	0b00000000 = 32 setter IO2 og IO5 HIGH
+4.2.5	Bilde til SVG og SVG til tegning
+For å tegne et bitmap-bilde må det først konverteres til SVG-formatet. Deretter oversettes SVG-formatet til bevegelseskommandoer for tegnerobotens firmware. SVG definerer grafikk ved hjelp av matematiske representasjoner som linjer, geometriske figurer og bezier-kurver. Figur 27 i Vedlegg I viser utdrag fra en SVG-fil med tre “path”-objekter som tegner tre kvadrater. En bezier-kurve, definert av sine fire kontrollpunkter, er vist i Figur 28 i Vedlegg I.
+Bitmap til SVG-format
+Selve konverteringen fra bilde til SVG-format kan følge denne algoritmen: 
+1.	Bildet gjøres uskarpt før en adaptiv threshold-algoritme finner kantene, representert som svarte piksler.
+2.	Kantene detekteres av en tracing-algoritme som approksimerer overflaten med bezier-kurver eller linjesegmenter, som vist i Figur 14. Detaljer om tracing-algoritmen finnes i Figur 25 i Vedlegg I.
+3.	SVG-kodene kan kopieres og lagres som JSON-format i en tekstfil for senere bruk.
+ 
+Figur 14: Originalbildet (venstre) går gjennom flere filtre som detekterer kanter (midten). Potrace-algoritmen konverterer linjebildet til SVG-format (høyre) [42].
+SVG-kompresjon
+En begrensning med prototypen er micro:bit sitt begrensede flashminne på 512 kB og RAM på 128 kB, noe som begrenser størrelsen på hardkodede tegninger. 3D-printere bruker SD-kort eller direkte tilkobling til en datamaskin for å lese av GCODE, men dette er ikke et alternativ for oppdragsgiver.
+Ulike tilnærminger for å komprimere SVG-filene ble utforsket. Dette er dokumentert i kap. 10.1 i Vedlegg I.
+SVG til stepperkode: SVG-parser
+SVG-formatet tillater en stor variasjon av hvordan filen settes opp. I tillegg til å definere ulike geometriske elementer med deres posisjon, kan path-elementer defineres med 24 ulike kommandoer som vist i Tabell 1 i Vedlegg F. Disse kan benyttes om hverandre, med eller uten kommaseparerte koordinater og med eller uten mellomrom mellom bokstaver og tall. I tillegg kan relative og absolutte bevegelser blandes. Dette kompliserer parsing av SVG-filer.
+En kodesekvens for én flyttekommando og tre etterfølgende bezier-kurver kan se slik ut:
+M 12.1,0.9 C 11.9,1,11.4,1.1,10.9,1.1, C 8.6,2.2,8.3,2.5,8.1,2.6, C 7.9,2.6,7.3,3,6.8,3.3
+Parsingen leter etter neste kodebokstav og leser deretter ut koordinatene, to for M og seks for C. Når parsingen av kodesekvensene er utført er koordinatene tilgjengelige for å kjøres gjennom bevegelsesalgoritmene beskrevet i kapittel 4.2.1.
+4.3	Fysisk implementasjon
+Konstruksjonen av den fysiske prototypen fokuserte på stabilitet, nøyaktighet og brukervennlighet. Dette underkapittelet beskriver hvordan tegneroboten ble modifisert for å sikre presise bevegelser for programvaretesting og unngå mekaniske feil. Videre presenteres robotens muligheter og svakheter, samt elektronikkens kobling.
+4.3.1	Prototypen
+Prototypen, bygget i kryssfiner og levert av MakeKit, var ikke funksjonell ved levering. Den ble modifisert i flere iterasjoner for å eliminere maskinvare-relaterte feil. Følgende endringer ble utført:
+Versjon 1:
+•	Nema 17 motorene som var montert ble erstattet med 28BYJ-48 steppermotorene.
+•	 A4988 stepper-driverne ble koblet til steppermotorene og nødvendige strømforsyninger.
+•	Trinser for trekking av snorene ble designet og 3D-printet med en omkrets på 100 mm som tilsvarte grensene for tegning på 100 × 90mm. Kalibrering av tegneroboten ga 62 steg per millimeter bevegelse i hver av aksene.
+•	3D-printet brakett for å holde penn ble montert.
+Versjon 2:
+•	Støttevegger for å stabilisere bommene ble montert.
+Versjon 3:
+•	I/O-utvidelseschipen PCA9557 ble loddet flere utganger på og tilkoblet et eget prototype-kretskort med diskrete komponenter påloddet.
+Versjon 4:
+•	Bommene ble erstattet av to rette pinner og det ble designet og 3D-printet en ny og mindre slarkete sklimekanisme for tegnehodet.
+Versjon 5:
+•	For utforskning av videre arbeid med prototypen, ble løftemekanisme for tegneredskap designet og 3D-printet så den kunne bruke den tilgjengelige servomotoren fra MakeKit.
+•	En separat strømforsyning for servomotoren måtte kobles til.
+ 
+Figur 15: Bilde av tegnerobotens modifiserte prototype i versjon 5. Kilde: Henrik C. Mauroy.
+4.3.2	PCA9557 I/O-utvidelseschip
+PCA9557-chipen ble loddet fast til ytterligere signalbaner og koblet til et prototypekretskort for stabil elektrisk kontakt (figur 2 i Vedlegg I). Tidlig testing bar preg av sporadiske feil i kommunikasjon grunnet manglende tilkoblinger slik referansekretsen i Figur 2 i Vedlegg G viser. Etter modifisering virket I2C-kommunikasjonen med svært lav kvalitativt opplevd feilrate.
+4.4	Testing og validering under utvikling
+Testingen av tegneroboten ble utført både i simuleringsmiljøer og med den fysiske prototypen for å validere systemets funksjonalitet og ytelse.
+4.4.1	Enhets- og integrasjonstester
+Testene i Tabell 10 ble benyttet underveis i utviklingen for å sikre at individuelle komponenter og deres integrasjoner fungerte som forventet. Resultater av testene er oppsummert i kap. 4 i Vedlegg I.
+ 
+Tabell 10: Ulike enhets- og integrasjonstester for tegnerobotens komponenter.
+Komponent	Testverktøy	Testrutine
+Steppermotor	Dreiemomentmåling	Kjøre motor og bremse trinsen med fingrene.
+ 	Fart	Tidsmåling av en eller flere rotasjoner.
+micro:bit pulsing	Måle elektriske signaler på I/O-porter	 Måle pulsbredden ved ulike frekvenser.
+PCA9557 pulsing	Måle elektriske signaler på I/O-porter	 Måle pulsbredden ved ulike frekvenser.
+Detaljer i tegning	Tegne + fotografering av resultat	Tegne sirkel
+ 	Kvalitativ vurdering	Tegne kvadrat/rektangel/skrå linjer
+ 	Kalibrering	Tegne kvadrat/sirkel, måle dimensjoner med skyvelære.
+Sirkler m flate sider	Tegne + fotografering av resultat	Tegne sirkel med 38 linjesegmenter, r= 30 mm, v = 5 mm/s.
+ 	Kvalitativ vurdering	 
+Repeterbarhet	Tegne + fotografering av resultat	Tegne 10 ulike objekter oppå hverandre, kvalitativ vurdering
+ 	Filme tegneprosessen	 
+Algoritmer for pulsgenerering	Repeterbarhetsmåling	Tegne 5 sirkler oppå hverandre, kvalitativ vurdering
+ 	Kvalitetsmåling	Tegne 5 sirkler oppå hverandre, kvalitativ vurdering
+SVG-tegning	Fullføres tegneprosessen?	Tegne SVG og se om tegning fullføres med logging til serielplotter for debugging.
+ 	Tegne + fotografering av resultat	Tegne flere like SVG-filer på samme ark, kvalitativ vurdering.
+ 	Kalibrering	Tegne SVG, måle bredde med skyvelære
+
+4.4.2	Brukertester
+Utført for å samle tilbakemeldinger på brukeropplevelse og for å identifisere områder for forbedring.
+•	Test 1: Få en micro:bit til å vise et smilefjes i displayet.
+•	Test 2: Få tegneroboten til å tegne et kvadrat med 60 mm sidebredde.
+•	Test 3: Få tegneroboten til å tegne en bil.
+•	Test 4: Kvalitativ tilbakemelding fra brukerne.
+4.5	Simulering og dens rolle i utviklingsprosessen
+Simulatoren er skrevet med same kodelogikk som er planlagt brukt for tegneroboten og brukes til å validere design og funksjonalitet før implementasjon i fysisk form.
+4.5.1	Formål med simulatoren
+En simulator ble utviklet parallelt med den fysiske roboten for å effektivisere testprosessen og redusere risikoen for feil. Simulatoren etterlignet mekanismene i den fysiske prototypen og ble skrevet med hensyn til kravene i MakeCode-plattformen.
+4.5.2	Hvordan simulatoren fungerer  
+Simulatoren består av en HTML-fil for DOM-elementene og en JavaScript-fil for logikken. Full kodeoversikt finnes i Vedlegg P, mens Figur 16 viser koden i et forenklet diagram.
+ 
+Figur 16: Forenklet diagram av Tegnesimulator. Kilde: Oliver Sokol
+HTML-filen inneholder to overlappende Canvas-elementer. Tegning av objekter og figurer skjer ved manipulering av disse Canvas-elementene gjennom JavaScript. På øvre Canvas tegnes to bommer med Canvas APIets rect() funksjon, som beveger seg langs hver sin akse. Ved hver oppdatering klareres dette Canvas-elementet for å animere bommene. Krysspunktet fastslås ved å bruke x-koordinaten fra bommen som beveger seg langs x-aksen og y-koordinaten fra bommen som beveger seg langs y-aksen. På det underliggende Canvas-elementet brukes stroke og path funksjonene fra Canvas APIet til å fylle inn pikslene etter hvert som bommene beveger seg. Dette Canvas-elementet klareres ikke, slik at tegningen vedvarer og viser hele tegningen.
+I JavaScript-filen opprettes tre objekter som inneholder verdier for bommene, animasjonen og Bresenham-algoritmen. Eksempler finnes i Figur 1 i Vedlegg L. Disse brukes som tilstandsverdier som oppdateres etter hvert som koden kjører. Ved oppstart legges figur-objekter til i figureStack arrayet, og koden henter ut første målkoordinat fra første figur. Bresenham-algoritmen oppdateres, og tegnetilstanden aktiveres ved å sette running-verdien i draw til true. Både main og oppstartsfunksjonen kan sees i Vedlegg L, Figur 2.
+I tegnetilstanden kjører en løkke, basert på requestAnimationFrame() funksjonen, til figureStack er tom, som vist i Figur 3 i Vedlegg L. Løkken sjekker først om bommenes koordinater har nådd målkoordinatene. Hvis ja, oppdateres målkoordinatene til neste mål, og Bresenham-algoritmen samt steppermotorenes retning oppdateres. Løkken har to tilstander: en aktiv tilstand som simulerer puls sending til steppermotorene og manipulerer bommenes koordinater, og en inaktiv tilstand som simulerer at pulsen er av. Disse to tilstandene veksler basert på draw.pulseHigh-verdien og oppdateres etter tidsintervallet bestemt av draw.pulseInterval.
+I aktiv tilstand brukes verdiene fra Bresenham-algoritmen til å bestemme hvilken akse må bevege på seg. Tilsvarende bom får en endring i den relevante koordinaten.
+Etter at tidsintervallet har passert går koden i inaktiv periode og oppdaterer at ingen av bommene skal tegne i denne perioden.
+Ved slutten av hver tilstand blir pluseHigh verdien satt til den nåværende tilstanden slik at denne verdien kan bli sjekket ved neste passert tidsintervall og motsatt aktivitets fase blir utført. Når siste mål koordinat er nådd oppdateres programmet til å gå videre til neste figur i figureStack arrayet.
+Når en figur er blitt tegnet ferdig sjekker programmet etter neste figur og beveger seg til startpunktet for denne og tegner videre. Når siste figur er blitt tegnet blir programmet avsluttet ved at den avslutter å kalle på neste requestAnimationFrame().
+Når en figur er ferdig tegnet, sjekker programmet etter neste figur, beveger seg til startpunktet for denne og tegner videre. Når siste figur er tegnet, avsluttes programmet ved å stoppe requestAnimationFrame(). Figurer i simulatoren er laget av funksjoner som legger til et objekt i figureStack arrayet. Objektet inneholder midtposisjonen, antall punkter som skal tegnes, og en streng som beskriver typen. Det inneholder også en funksjon, calculatePointFromIndex(), som programmet kaller ved oppdatering av nytt målkoordinat. Funksjonen bruker en indeksverdi for å returnere neste målkoordinat. Figur 4 i Vedlegg L viser funksjonen for sirkeltegning. Dette reduserer mengden koordinater som må holdes i minnet samtidig, slik at bare neste mål holdes i minnet.
+Vedlegg J inneholder en oversikt over hvilke resultater og hvordan simulatoren ble brukt for å bidra til utvikling.
+
+Dette kapittelet om systemarkitektur og implementasjon har gitt en detaljert beskrivelse av tegnerobotens tekniske spesifikasjoner, programvarearkitektur og fysiske konstruksjon. Selv om testing underveis, inkludert enhets- og integrasjonstester, er omtalt i dette kapittelet, vil neste kapittel fokusere på den omfattende sluttestingen.
+ 
+5	Sluttesting og resultater
+Dette kapittelet beskriver metodene og resultatene fra testingen av tegneroboten, inkludert vitenskapelige, ingeniørfaglige og administrative resultater. Testingen følger prinsippene for falsifiserbarhet som beskrevet av Popper [43] og de statistiske metodene for hypotesetesting utviklet av [44]. Dette sikrer at resultatene er vitenskapelig valide og pålitelige.
+5.1	 Testmetodikk
+For å sikre at tegneroboten oppfyller alle tekniske og funksjonelle krav, ble det utviklet en omfattende testplan som inkluderer følgende typer tester:
+•	Funksjonelle tester av tegnerobot: Verifisering av alle robotens funksjoner og korrekt tegning av ulike geometriske figurer basert på brukerinngang.
+•	Funksjonelle tester av webapplikasjon for konvertering av bilde til SVG: Verifisering av at bilder i ulike formater kunne brukes, innstillinger for kvalitet og størrelse ble korrekt anvendt, og SVG-fil kunne lastes ned.
+•	Ytelsestester: Evaluering av motorenes ytelse, posisjoneringsnøyaktighet og hastighet under drift for å sikre pålitelig og presis bevegelse.
+•	Brukeraksepttester: Elever ved Foss Vgs. i Oslo fikk oppgaver som skulle løses, med veiledning i MakeCode av Henrik Mauroy. Programmering og posisjonering av penn ble utført av elevene selv.
+5.2	 Vitenskapelige resultater
+Tegneroboten ble vurdert gjennom en rekke vitenskapelig baserte tester som målte nøyaktighet og repetisjonsnøyaktighet av tegninger. 
+5.2.1	Repetisjonsanalyse
+Resultatet av tegning av flere sirkler i et program som ble repetert tre ganger viste høy presisjon uten målbar drift i posisjonering ved tegning av linjer. Ved tegning av sirkler var det tidvis noe unøyaktighet på omtrent 0,5 mm (Figur 2 i Vedlegg K).
+5.2.2	Resultat av kalibreringstegning
+Ved levering var tegnerobotens programvare satt opp med kalibreringsfaktorer. Måling av faktiske størrelser på kvadrat og sirkel viste at både x- og y-akse hadde omtrent 4-5 % for store bevegelser som vist i tabell 11. Bilde av kalibreringen er vist i Figur 1 i Vedlegg K.
+Tabell 11: Målte lengder langs x- og y-aksen sammenliknet med teoretiske verdier.
+Figur	X-akse (mm)	Avvik X-akse	Y-akse (mm)	Avvik Y-akse
+Kvadrat 80 x 80 mm	84,2	+5,25 %	83,4	+4,25 %
+Sirkel d = 40 mm	40,8	+2,0 %	39,4	-1,5 %
+5.2.3	Resultat av bilde-til-SVG webapplikasjon.
+BildetilSVG-applikasjonen kunne lese inn formater som PNG, JPG, GIF og WEBP. SVG-filen ble vist i preview, og det var mulig å kopiere teksten ved å trykke på kopier-knappen. Et skjermbilde av testen vises i Figur 26 i Vedlegg I, og SVG-filen som ble generert vises i Figur 17.
+ 
+Figur 17: SVG-fil av de tre gruppemedlemmene.
+5.2.4	Resultat av SVG-tegning
+SVG-filen ble relativt godt reprodusert av tegneroboten som vist i Figur 18.
+ 
+Figur 18: Tegning av SVG-filen i Figur 17.
+5.3	Ingeniørfaglige resultater
+Robotens ytelse oppfylte de tekniske kravene, inkludert responsivitet og håndtering av komplekse tegneoppgaver. Testing av grensesnitt og programvareintegrasjon viste at roboten håndterte flere samtidige instruksjoner uten feil eller forsinkelser.
+5.3.1	Systemytelse ved levering
+Ved prosjektets avslutning var systemet fullt operativt og klarte å utføre alle designspesifiserte funksjoner, med noe begrenset nøyaktighet i plassering av figurer.
+
+Hovedegenskaper:
+•	Programmering i MakeCode med blokker som definerer ulike geometriske figurer og andre operasjoner som å flytte tegnehodet til en koordinat.
+•	Brukere kan modifisere extension lokalt i sitt eget prosjekt.
+•	Tegneredskap er utbyttbart og festes med en setskrue.
+•	Tegnearealet er 120 x 90 mm.
+•	Tegnehastigheten er optimal ved 15 mm/s og kan endres av brukeren i programvaren.
+5.4	Administrative resultater
+En plan for utvikling og arbeid med produktet ble tidlig utarbeidet og representert av et Gantt-diagram Vedlegg N. Planen fordelte prosjektets utvikling i avgrensede perioder med tematisk og praktisk sammenheng. Prosjektmedlemmene loggførte totalt 1440 timer, fordelt på 424, 376 og 640 timer per medlem.
+De fleste planlagte aktiviteter ble påbegynt innen avklart periode. Alle dokumenter og oppgaver ble startet og innlevert i løpet av den fastsatte perioden. Eventuelle rettinger, korrigeringer og videre utviklinger av dokumentasjonen ble gjennomført etter de tildelte periodene. Forprosjektdokumentet i Vedlegg B og kravdokumentet ble arbeidet på i en periode utover de tildelte periodene. Dette for å forbedre på dokumentene på bakgrunn av tilbakemeldinger fra veiledere.
+Aktiviteter fra forskjellige aktivitetsperioder ble ofte utvidet eller flyttet på grunn av ulike omstendigheter. Oppgaver som "ferdiggjøre prototype" og "bli kjent med maskinvare" tok lengre tid enn planlagt, hovedsakelig på grunn av forsinkelser fra MakeKit i levering av komponenter. MakeKit var også mindre involvert i prototypens utvikling enn forventet, noe som førte til at gruppen i stor grad måtte gjennomføre forbedringer og endringer selvstendig. Komponenter ble ikke levert, eller ble levert seint, løfte mekanismen er for eksempel ikke blitt levert, mens servomotorene ble levert i februar.
+MakeKit var også ikke like involvert i utvikling av prototype som antatt. I utgangspunktet skulle gruppen bidra til utvikling av prototype ved å gi funksjonell tilbakemelding og implementere oppdateringer og endringer gjort av MakeKit til prototypens base versjon. I realiteten var maskinvare ansvarlig nødt til å gjennomføre forbedringer og endringer på egenhånd for å drive prosjektet fram.
+På grunn av sakte utvikling på maskinvare siden ble også programvare utvikling forsinket. Det var vanskelig å utvikle programvare uten å kunne teste kode på maskinvare, og endringer i kode struktur og paradigmer ble avholdt til de ble vurdert mulig på maskinvare. Dette er grunn til at simulator kodens skiller seg fra siste versjon av kode brukt på prototypen; manglende optimalisering som forårsaker dirring på prototypen som ikke kunne bli avdekket før seint i utviklingsprosessen.
+Etterhvert ble det tydelig at sluttrapport ville bli et meget omfattende var det bestemt å fremskynde og utvide arbeid med rapporten. Forberedende oppgaver ble tildelt prosjektmedlem for å kunne begynne med forberedelsene allerede i april. Samtidig ble det forsøkt å innhente forsinkelser i maskinvare og programvare utvikling ved å delvis arbeid med disse oppgavene i løpet av første uke av mai. En mer realistisk plan er presentert i Vedlegg O.
+Bildet som kommer fram av Burndown diagrammene i prosessdokumentet, Vedlegg E, viser til en vis grad disse forsinkelsene. Arbeidet ble gjort, men forventet effort ble ikke nådd i noen av sprintene og det er synlig at det ble dager der ting ikke ble gjort. Det kommer også fram at i flere tilfeller måtte nye oppgaver legges til etter hvert som det ble tydelig at det var mangler i sprinten som man måtte få unnagjort, før man kunne gjøre ferdig oppgavene som var ment for sprinten.
+Man kan også se en markant økning i antall forventet innsats som skulle fullføres hver sprint. Dette er en kombinasjon av både større press med å utføre oppgaver for å komme i mål med ønsket sluttresultat, og fordi første sprint var også en test på hvor mye man kunne tillate seg å jobbe med i løpet av sprinten.
+Ved overgang til Kanban i siste sprint blir det en litt annerledes gjennomgang. Endring til denne mindre rigide agile metodikken betydde en noe bedre arbeidsflyt som nærmere fulgte den forventede burndown kurven. Denne trenden blir noe forstyrret i de siste dagene av sprinten da det oppstod noen feil som måtte rettes og nye oppgaver ble laget.
+Bruk av agile metodikk i prosjektet har vært sentralt i å bidra med å holde styr på arbeidsoppgaver og en strukturert fremgangsmåte. Denne delen av prosjektet var oppfattet som nødvendig og en av gruppemedlemmene var utvalgt som ansvarlig og jobbet med å opprettholde og utvikle bruk av metodikken til gruppens beste formål.
+5.5	Resultater fra brukertesting
+Tegnerobotens prototype har gått gjennom tre omganger med brukertesting tatt over flere økter på datoene 02.05.24, 07.05.24, 24.05.24. Brukerne var videregående ungdommer som fikk tilgang til prototypen og MakeCode plattformen hvor de kunne teste ut en del av prototypens grunnleggende geometriske figurer. 
+16 elver ble testet ut over tre testperioder. De ble først instruert på hvordan MakeCode plattformen og Tegnerobot Extension koden fungerte. Etter første visning av hvordan koble til micro:bit og starte tegneroboten, var alle gruppene selvdrevne.
+Gruppene klarte kort tid etter innføring å operere plattformen og produsere tegninger. Under testing ble det opplevd flere effekter av slakk i steppermotorenes girkasser diskutert i kap. 3.1.1. På hovedoppgaven fikk gruppene til å tegne en bil uten kritiske utfordringer (Figur 19).
+ 
+Figur 19: Venstre: Elev som deltok i brukertest ved Foss Vgs. 
+Høyre: Detaljert arbeidstegning med resultatet nedenfor. Kilde: Henrik C. Mauroy
+I etterkant av testøktene ble brukerne tilsendt et kort spørreskjema med spørsmål om brukeropplevelsen. Disse skal analyseres for å trekke fram kvalitativ data som kan bidra til å forme konklusjoner og veilede videre utvikling og arbeid med tegneroboten.
+Generelt oppfattes opplevelsen som interessant og engasjerende. Brukerne bemerker positive opplevelser med hvor lett MakeCode plattformen var å komme i gangsmil med. Den visuelle blokk programmeringsformen gav gode opplevelser og minnet om programmering fra barneskolen, samt at den var ansett å være mer tydelig og oversiktlig en ren kode. Brukerne viste også en klar interesse for at arbeidet deres på MakeCode plattformen gav reelle resultater som kunne ses og oppleves utenfor skjermen.
+Noen utfordringer kom også fram. Når brukerne jobbet med ren kode beskrev de den som vanskelig å forstå til å begynne med, samtidig som det var komplisert å komme i gang med logikken bak hvordan å bevege på tegneroboten etter ønske. Det ble også vanskelig å holde styr over større samlinger av kode, både i blokk og kode format.
+Det var også kommentert muntlig under testøktene at det var irriterende at det var så få geometriske figurer å velge i fra. Muntlig tilbakemelding fra testøktene viste også misnøye med unøyaktighetene som roboten kunne ha på grunn av slark og usikkerhet med om de korte testøktene hadde noe effekt på geometrisk forståelse.
+
+Etter å ha sett på resultatet av sluttestene, vil neste kapittel se på disse funnene opp mot prosjektets hypoteser og målsetninger.
+ 
+6	Diskusjon
+Dette kapittelet analyserer og diskuterer resultatene fra de forskjellige testene som er beskrevet i det foregående kapittelet. Diskusjonen tar for seg hvordan resultatene svarer på prosjektets innledende problemstillinger, hypoteser og målsettinger, samt hvordan produktet ble mottatt av testbrukerne.
+6.1	Evaluering av hypoteser
+Tabell 12 nedenfor viser hypotesene som ble satt for prosjektet, sammen med en diskusjon av resultatene fra testene i forrige kapittel.
+Tabell 12: Evaluering og diskusjon av prosjektets hypoteser.
+Hypotese	Diskusjon
+Hypotese 1: En tegnerobot som bruker mikrokontroller-teknologi og en passende algoritme for å kontrollere motorene, kan tegne nøyaktige tegninger fra digitale bildefiler.	Repetisjonstester viste en nøyaktighet på 0,5 mm. Dette bekrefter at mikrokontroller-teknologi og algoritmen for motorstyring gir tilstrekkelig nøyaktighet, selv om slark i girkassen medførte små avvik.
+Hypotese 2: Integrasjon av ferdig programmerte figurer og omforming av bildefiler til vektorgrafikk vil gi en pedagogisk og brukervennlig plattform for læring.	Brukeraksepttester indikerer positiv respons og økt engasjement blant testdeltakerne, noe som støtter hypotesen om at plattformen er både pedagogisk og brukervennlig.
+Hypotese 3: Det er mulig å kode en løsning som kan konvertere SVG-filer til instruksjoner som styrer bevegelsene til en tegnerobot.	Løsningen for konvertering av SVG-filer og tegning av dette formatet ble vellykket implementert. Dette viser at hypotesen holder, men også at det er rom for forbedringer i brukervennlighet og presisjon.
+Hypotese 4: En iterativ kvalitetssikringsprosess vil sikre funksjonalitet og pålitelighet i den endelige løsningen som leveres til oppdragsgiver.	Kvalitetssikringsprosessen, inkludert kontinuerlig testing og validering, viste at systemet overholdt alle krav i kravspekdokumentasjonen. Dette bekrefter at en iterativ prosess er effektiv.
+Hypotese 5: Scrumban som arbeidsmetodikk vil være en optimal tilnærming til prosjektstyring og utvikling av både programvare og maskinvare.	Scrumban-metodikken sikret høy fleksibilitet og effektivitet i prosjektet. De fleste mål ble nådd innen tidsfristen, og det var økt effektivitet etter bytte fra Scrumban til Kanban i henhold til Burndown.
+
+Problemstillingen i prosjektet foreslo at en brukervennlig, interaktiv tegnerobot kunne fremme forståelse og interesse for geometri blant skoleelever. Resultatene støtter dette, da brukeraksepttester indikerer positiv respons og økt engasjement blant testdeltakerne.
+6.2	Evaluering av målsetninger
+Tabell 13 nedenfor viser til målsetningene som ble satt for prosjektet, sammen med diskusjon om oppnåelse og oppnåelsesgrad. 
+
+Tabell 13: Evaluering av målsetningers oppnåelse.
+Målsetning	Oppnåelse
+Målsetning 1 & 2: Brukervennlighet og Grensesnitt	Brukerkravene om en brukervennlig tegnerobot og programmering med blokker og kode ble oppnådd. Tilbakemeldingene fra brukertesting viser at strukturen på kodeblokkene var enkel å forstå og bruke.
+Målsetning 3: Geometrisk Plotting og Tegning
+Målsetning 4: Filbehandling og Konvertering
+	Tegneroboten kunne tegne forhåndsdefinerte geometriske figurer med høy presisjon, selv om flere brukere ønsket et større utvalg.
+Webapplikasjonen for konvertering av bitmap til SVG ble vellykket implementert, noe som gir brukerne muligheten til å tegne egendefinerte figurer.
+Målsetning 5: Testing og Validering
+
+	Omfattende testing og validering av både maskinvare og programvare viste at systemet var pålitelig og oppfylte de tekniske kravene.
+Målsetning 6: Kommunikasjon og Samarbeid
+	Regelmessig kommunikasjon med oppdragsgiver og veiledere ble opprettholdt gjennom ukentlige møter, noe som bidro til prosjektets fremdrift og kvalitet.
+
+6.3	Oppsummering av oppnådde målsetninger
+Målsetningene og kravene som ble satt for prosjektet, ble i stor grad oppnådd. Brukervennlighet var en sentral målsetning i utviklingen av både programvare og maskinvare. Kode, MakeCode Extension og maskinvaren ble holdt så enkel og imøtekommende som mulig. Tilbakemeldinger fra brukertesting indikerte at denne målsetningen i stor grad ble oppnådd. Testpersonene var fornøyde med strukturen på kodeblokkene og opplevde det som svært positivt å se Tegneroboten i aksjon.
+For å oppnå det første kravet ble det laget godt oversiktlige kodeblokker på MakeCode-plattformen. Disse blokkene var godt beskrevet og merket. Tilbakemeldinger fra testing viser at disse blokkene var mer oversiktlige og enklere å bruke enn ren kode.
+Sluttresultatet inkluderer en variasjon av geometriske figurer som kan tilpasses brukerens ønsker og parametere. Disse figurene kunne gjerne videreutvikles, og flere typer geometriske figurer kunne legges til. Tilbakemelding fra brukertesting indikerte misnøye på grunn av begrensningene i dette aspektet.
+Sluttresultatet inkluderte også et verktøy for konvertering av bitmap-bilder til SVG-figurer. Dette gjør det mulig for brukere av Tegneroboten å tegne en nærmest ubegrenset mengde egendefinerte figurer og bilder.
+6.4	Vurdering av programvareverktøy
+6.4.1	MakeCode:
+Bruk av MakeCode plattformen oppfattes som en positiv opplevelse og fungerte som et godt rammeverk for å få ferdigstilt kode for tegnerobot. MakeCode i sin helhet fungerer som en god plattform og tilbyr utviklere mye, at det er integrert med GitHub og er godt dokumentert har bidratt til at prosjektet har kunnet iterere seg smidig og at utviklingsprosessen har vært enkel fra et samarbeidsperspektiv.
+Selve MakeCode fungerer fint som en IDE, den er noe begrenset og forklarer ikke detaljert hvor feilmeldinger oppstår, noe som har ført til noen vansker og behov for omskriving av kode. TypeScript subsettet som brukes i sammenheng med micro:bit er også begrenset i forhold til funksjonalitet som for eksempel ikke tillater kontekst annotasjon gjennom “this” utenfor klasser. Bruk av “this” i en vanlig metode gir for eksempel feilmelding om at “this” kan ikke brukes utenfor en metode, altså en feilmelding som ikke beskriver hva som egentlig går feil.
+MakeCodes største styrke er kodeblokkene de tilbyr, hvor det er mulig å visuelt sette sammen kode og lage et fullstendig program som kan ta i bruk den fulle funksjonaliteten av produktet man bygger for. Det er et veldig intuitivt system som passer godt for nybegynnere og personer med lite erfaring eller kompetanse med kode, men kan også fungere som rask prototyping eller laging av boilerplate kode som kan brukes til videre utvikling for mer avanserte brukere.
+Det er veldig forståelig at MakeKit ønsker at prosjektets resultat er en extension som tilbyr kjernefunksjonalitet til tegnerobot. Dette er en veldig brukervennlig og simpel måte å gi brukerne en rask innføring i bruk av produktet. Det fungerer fint som utgangspunkt og som kan bygges på og fungerer bra til å demonstrere tegnerobotens muligheter.
+MakeCode har gode muligheter til å brukes innenfor forskjellige kontekster. Brukervennligheten og tilpasningsdyktigheten den tilbyr gjør at den egner seg både til nybegynnere og til avanserte brukere og gjør det mulig å lære seg om programmering for innebygde systemer og for å lære seg om bruk av støttende teknologi og verktøy som GitHub.
+6.4.2	Tegnesimulator: 
+Tegnesimulatoren var til nytte for å avklare og redegjøre at algoritmer og kode fungerte etter forventninger og for å feilsøke problemer. Den største fordelen simulatoren hadde var for å kunne visualisere logikk og hvor fort den tillot å iterere og framstille resultater basert på endringer. Det var mye raskere å kjøre en algoritme gjennom tegneroboten og se resultatene umiddelbart, frem for å vente på kompilering og nedlastning til micro:bit og så vente på fysisk tegning. Arbeid med simulatoren som en webapplikasjon med tilnærmet logikk og format på sluttproduktet gjorde at en del kode var tilgjengelig på forhånd som kunne fort skrives over til MakeCodes krav og spesifikasjoner.
+Simulatoren bød også på noen utfordringer. Ettersom simulatoren var en standard webapplikasjon som kjørte i browser på vanlige datamaskiner, var den ikke begrenset på ytelse til samme grad som en mikrokontroller og hadde ingen mekaniske begrensninger. Dette førte til noen problemer når simulatorkode skulle kjøres på selve micro:biten og logikkflyten forårsaket dirring og rar oppførsel på prototypen på figurer med mange mål koordinat oppdateringer, for eksempel på en sirkel.
+Ettersom micro:bit mikrokontrolleren ble først tatt i bruk seint i prosjektet var det ikke mulig å avklare hva i logikk flyten forårsaket feilene. Ettersom Static TypeScript har sine egne begrensninger og må deretter kompileres til ARM Thumb instruksjonssett er det vanskelig å debugge nøyaktig hvor i denne prosessen feilene oppstår og hva som er grunnlaget. På grunn av disse utfordringene har sluttproduktet i prosjektet måtte bruke tidligere versjoner av koden som er mer prosedyriske og ungår bruk av objekter for figur betegnelse.
+Det er drøftet flere punkter hvor muligheter for optimalisering kan gjøres for å unngå den uønskede atferden:
+Bruk av objekter til datahåndtering - Verdier kunne blitt satt utenfor objekter for at de blir direkte tilgjengelig i stedet for at de blir gjort tilgjengelig gjennom et overordnet objekt. Grunn til at dette vurderes er at det er usikkert hvordan ARM Thumb instruksjonssettet håndterer Static TypeScript objektene og det er mulig det er noe overhead som forårsaker problemer.
+Bedre fordeling av kalkulasjoner og if setninger- Det er mulig at for mange kalkulasjoner kjøres samtidig som micro:bit sender aktivt pulser til steppermotorene. En bedre fordeling av kalkulasjoner og tilstandssjekk kunne øke på den generelle ytelsen. Koden kunne for eksempel inkludere en “Kalkujasons” tilstand og en Tegnings tilstand, hvor alle tunge sjekk og kalkulasjoner gjennomføres i den første fasen og små kalkulasjoner og tegning foregår i den senere fasen, med klare skiller mellom disse to fasene.
+Unngå bruk av JavaScript/TypeScript spesifikke funksjoner - Det er kjent at det kan være ytelses forskjeller ved bruk av forskjellige innebygde funksjoner. Det er for eksempel brukt ternary operators i koden, det er da usikkert på hvordan disse blir kompilert og det kan være en god ide å sjekke om fjerning av disse vil føre til noe bedre ytelse.
+Bruk av simulatoren oppleves som positiv og en god tilnærming til den kvalitetsmessige og iterative utviklingsprosessen.
+6.5	Enhetstesting for reproduserbarhet
+Repetisjonsanalysen viste at Bresenham-algoritmen var et godt valg for styring av pulsene til steppermotorene. Tegnerobotens logikk holdt hele tiden orden på posisjonen til tegnehodet uten å ha noe drift. Tegningens størrelse tilsvarer omtrent 8000 steg med steppermotoren i x-retning og 7250 steg i y-aksen. Ved kun noen få steg feil ville de resterende tegningen drifte fra planlagt bevegelse. At alle sirklene og skrå linjer lå oppå hverandre selv etter tre repetisjoner av tegningen viser at steppermotorene og den tilhørende pulsalgoritmen var gode valg for tegneroboten.
+Dette er kritisk for bruken av roboten i et pedagogisk miljø, hvor presisjon i tegningene kan påvirke elevers forståelse av geometriske konsepter. 
+Det må derimot nevnes at slark i girkassen medførte tegning av linjer med offset. Dette gjorde relativ plassering av geometriske figurer feil i forhold til programmerte posisjoner. Innad i figurene ble de allikevel tegnet riktig ved repeterende tegning. F.eks. avsluttet alltid sirkler litt i overkant av startposisjonen sin ved kun én omdreining. Dette er særlig fremtredende i Figur 2 i Vedlegg K. Ved repeterende omdreininger ble sirklene lukket som vist i Figur 1 i Vedlegg K.
+Kalibreringsanalysen viste også reproduserbarhet ved at både kvadrat og sirkel ble tegnet med tre repetisjoner. Avviket i dimensjoner på tegningene er ikke en intrinsisk egenskap ved tegneroboten, men snarere en justering som brukere må gjøre i programvare. Det benyttes en faktor i koden “stegPerMM” for å oversette fra lengde til steg, som under utvikling har vært satt til 5000 steg/62 mm = 80,65 steg/mm. Dette har vært godt nok for å tegne innenfor tegneområdet under utvikling. Det må derimot kalibreres i både x- og y-akse med et eget kalibreringsprogram der en strek på 5000 steg tegnes langs hver akse, og deretter måles avstanden. Dette var tidligere implementert i firmware med Arduino som mikrokontroller, men mangler foreløpig for micro:bit ved prosjektets slutt. Årsaken til kalibrering ligger i drivtrinsene på steppermotorene som kan være laget med ulike diametere, og det avhenger også av hvordan snorene er lagt rundt trinsene.
+6.5.1	Bilde-til-SVG
+Det var et ambisiøst delmål å få til en webapplikasjon for konvertering av bitmap til SVG-format. Det ble derfor utviklet en relativt enkel algoritme for konvertering beskrevet i kap 4.2.5, uten at den var optimalisert for alle mulige typer bilder. Appen kjører i klients nettleser ble også utviklet. To åpenbare fordeler med å kjøre algoritmen på klient-pc er at MakeKit ikke trenger å sette opp en egen serverløsning for å hoste webapplikasjonen, og det trengs ikke omfattende kode for validering av input, slik en server hadde trengt.
+Webapplikasjonen fikk noen justeringsmuligheter for detaljer i bildet, bredden på kantlinjene detektert, og i hvilken grad artefakter i form av flekker skulle fjernes i det ferdige SVG-bildet.
+En svakhet med implementeringen for kjøring på klient var måten bildedata måtte håndteres internt av appen. Det filtrerte bildet ble lagt inn i et canvas-element for så å bli avlest av Potrace-algoritmen. Denne operasjonen ble blokkert av nettlesere ved andre gangs kjøring av SVG-generering, grunnet en advarsel om treg ytelse ved repeterbare bildeavlesning fra canvas. Ved trykk på konverteringsknappen en andre gang kunne SVG-generering skje på nytt, men brukeropplevelsen blir dårligere. Feilen ble reprodusert med følgende browsere: Chrome, Mozilla Firefox, Vivaldi og Safari.
+6.5.2	Bilde-til-tegning reproduserbarhet
+SVG-filene generert med webapplikasjonen ble tegnet med tegnerobotens svakhet med slark i girkassene. Tegningene bestod av tusenvis av linjesegmenter i ulike lengder og vinkler. Det ble nødvendigvis en god del bevegelser rundt midtpunktet for steppermotorene som førte til feil posisjonering av linjene tegnet slik det ble observert i testene i kap. 5.2. SVG-filer fra webapplikasjonen definerer egentlig omrisset av kantene funnet ved filtrering av originalbildet. Ved å fjerne fyllet tegnes SVG-filens omriss med to linjer. Grunnet slarket i girkassen ble disse doble linjene sjelden tegnet riktig ved siden av hverandre. Som f.eks. omrisset av ansiktene i Figur 18.
+6.5.3	Ingeniørfaglige Utfordringer:
+Selv om tegneroboten generelt presterte godt, pekte noen av de ingeniørfaglige testene på utfordringer med maskinvarekomponenter, som motorstyring under visse komplekse operasjoner. Flere utfordringer måtte også overkommes i utvikling av tegneroboten som et sammensatt system. Maskinvare spilte ikke alltid på lag slik teori forutsatte og flere begrensninger i maskinvare ble avdekket.
+Slakk i girkassen
+Det ble brukt svært mye tid på feilsøking av sirkler som ikke ble tegnet riktig og firkanter som ikke ble lukket. Dette var åpenbart noe som måtte sjekkes om det lå i programvare eller maskinvare. Figur 9, 12, 15 og 17 i Vedlegg I dokumenterer de flate sidene parallelt med x- og y-aksen. Årsaken til denne oppførselen er at bevegelsen på tvers av den “flate” streken er liten og får ikke dratt ut slakket i girkassen. Dermed blir bevegelsen på en måte forsinket og sirkelen strekkes ikke nok ut i sidene. Det var først etter nøye testing og modifisering av begge bommene og tegnehodets oppheng for å minske slakk, samt sammenlikning med simulatoren, at årsaken ble avdekket å ligge i girkassen. Dokumentasjon av denne utviklingsprosessen ligger i kap. 5.2 i Vedlegg I.
+PCA9557-pulsgenerering 
+Bruken av ekstern I/O-ekspanderchip ble uttestet midtveis i prosjektet. Først og fremst måtte algoritmer for å styre chipen finnes ut av. MakeCode-biblioteket har dokumentasjon som ikke passet med PCA9557-chipen så databladet [45] måtte studeres nøye for rekkefølgen på kommandoene og i hvilket format. Utelukking av feil driftsspenninger for I2C-bussen måtte også utføres. Et bibliotek for BME280-sensoren ble til slutt funnet i et bibliotek for Micropython på GitHub, der riktig kommunikasjonsprotokoll ble brukt [46].
+Måling av ytelsen for pulsering over I2C-bussen viste derimot at høy nok pulsfrekvens ikke ville oppnås slik motorstyringsalgoritmene var designet (kap. 5 i Vedlegg F). En direkte kobling av micro:bit til stepper-driverne ble derfor benyttet for videre arbeid med prototypen. Dette må utforskes av oppdragsgiver. En løsning kan være å introdusere en ekstra mikrokontroller som fungerer som en frekvensgenerator styrt av Bresenham-algoritmen. På den måten kunne micro:bit fortsatt kommunisert via PCA9557-chipen, men da kun for å overføre koordinater til den eksterne mikrokontrolleren.
+Mekanikk
+Det mekaniske oppsettet med bommer og tråder var ikke optimalisert for hele tegnearealet. Mot sidene vippet tegnehodet i forhold til hvor den var i aksesystemet på grunn av måten snorene ble strammet.  Dette vil trolig bli minimert av MakeKit i neste iterasjon av det mekaniske designet.
+Begrensninger med micro:bit
+Det ble avdekket at micro:bit V1 sin prosessor ikke var rask nok til å drive pulsgenerering uten sporadiske bråstopp i tegningen. Dette ble løst ved å bruke micro:bit V2 med en oppgradert prosessor. Dermed vil tegneroboten være begrenset til eiere av micro:bit V2. 
+En annen begrensning ved micro:bit V1 var at den ikke kunne rerute Pin1 og Pin2 som I2C-pins fordi den kun hadde én I2C-chip. micro:bit V2 på den annen side har fått to, én for intern kommunikasjon med de innebygde sensorene, og én for ekstern kommunikasjon.
+Minnebegrensning på micro:bit
+En tredje begrensning ved micro:bit V1 var et mindre Flash-minne så den ikke kunne tegne SVG-filer hardkodet i programmet. Dette kunne V2 gjøre til en viss grad. Ble SVG-filene for store krasjet micro:bit sporadisk midt i tegneprogrammet. Det var ikke tid til å forfølge denne feilen grunnet prosjektets deadline.
+Kompresjon av SVG-filene, slik beskrevet i kap. 4.2.5, hadde vært en mulig løsning. Det ble utført noen tester ved å fjerne oppløsning i koordinater og teste om Huffman-encoding ville føre til mindre datastrøm, men kompresjonen oppnådd på kun ca. 50 % var utilstrekkelig (kap. 9.2 i Vedlegg I).
+Det ble foretatt en rask studie av muligheten for å omgå minnebegrensningen ved å implementere avlesing av SVG-filer fra SD-kort. Denne er gjengitt i kap. 10.3 i Vedlegg I. Dette gikk smidig fordi eksisterende kode for avlesning av SVG-formatet kunne skrives om med små endringer. Siden dette punktet var utenfor oppgavens rammer, er det ikke inkludert som en funksjon i det ferdige produktet. Det er heller ikke sikkert en løsning MakeKit vil ta med i videre utvikling da det vil øke kostnadene ved produksjon.
+
+Strømforsyning
+Elektronikken som helhet trenger en strømforsyning fordelt på tre spenningsnivåer for å fungere optimalt: 6 V for motorene, 5 V for servoen og 3,3 V for micro:bit. Servoen kunne også operert ved 6 V, men grunnet stort strømbehov ved løft av penn (kap. 4 Vedlegg I), forstyrret den steppermotorene så de fikk drift. Dette medfører et mer komplisert utvidelseskort for MakeKit å produsere.
+6.6	Samfunnsmessige og etiske betraktninger
+Bruken av teknologi i utdanningen reiser også viktige etiske spørsmål, spesielt med hensyn til tilgjengelighet og digitalt skille. 
+Det er viktig å sikre at teknologiske undervisningshjelpemidler som tegneroboten er tilgjengelige for alle studenter, slik at ingen blir ekskludert fra de læringsmulighetene teknologien tilbyr.
+6.7	Vurdering av produktets effektivitet
+Data innsamlet fra brukertesting klarer ikke tydelig å dokumentere en målbar pedagogisk effekt. Antall forsøkspersoner og mengden tid som har vært tilgjengelig for testing, gir ikke tilstrekkelige bevis på om tegneroboten fullt ut oppfyller sitt pedagogiske potensial. Til gjengjeld viser tilbakemeldingene at tegneroboten bidrar til økt engasjement og interesse for emner som robotikk, programmering og geometri/matematikk.
+Brukervennlighet har blitt opprettholdt gjennom hele utviklingsprosessen. Brukertesting viser at lite innsats er nødvendig for å komme i gang med produktet, og at både blokk- og kodeprogrammering er funksjonelle. Spesielt blokkprogrammering har fått gode tilbakemeldinger og synes å passe godt til å visualisere logikken bak geometrisk tegning og programmering. Det har også vært betydningsfullt for brukere å se et fysisk resultat generert ut fra det de har skapt virtuelt. Dette tyder på at tegneroboten har en iboende fordel i en læringskontekst ved å tilby en opplevelse utenom vanlig programmering eller læring om geometriske former, i tillegg til å være enkel å komme i gang med.
+Prototypen slik den er i prosjektets sluttfase, dekker minstebehovet ved å tegne grunnleggende geometriske figurer og strekker seg mot målet om å tegne fra SVG-filer. Det har også blitt implementert en løsning for å ta imot bitmap-bilder og konvertere dem til funksjonell koordinatkoding. Denne funksjonaliteten utvider bruksområdet og gir brukerne muligheten til å tegne en nærmest ubegrenset mengde egendefinerte figurer og bilder.
+6.8	 Implikasjoner for fremtidige prosjekter
+Basert på prosjektets utfall, er det flere områder der fremtidige prosjekter kan bygge videre på dette arbeidet. 
+Optimalisering av motorstyringen og utvikling av en kraftigere maskinvareplattform kan ytterligere forbedre robotens presisjon og brukervennlighet. Et søk hos AliExpress viste at presise steppermotorer som Nema 17 kan kjøpes til rundt 60 NOK [47].
+Videre forskning kan også se på integrering av flere matematiske konsepter og avanserte tegneteknikker for å utvide robotens undervisningspotensial slik som rotasjon av figurer med en gitt vinkel.
+Kode kan optimaliseres for å tilby bedre ytelse og brukeropplevelse. Videre kan flere predefinerte geometriske figurer og streker legges inn for å gi brukeren flere valgmuligheter for grunnleggende tegning slik som blomster, stjerner, strekmennesker etc.
+For tegning av SVG-filer med høyt detaljnivå kan lagring på SD-kort vurderes. Den enkle uttestingen i kap. 10.3 i Vedlegg I viste at det var ukomplisert å justere kodebasen for å oppnå dette.
+ 
+7	Konklusjon og anbefalinger
+Dette kapittelet oppsummerer hovedfunnene og konklusjonene fra prosjektet, og setter frem forslag til veier for videre arbeid og forskning basert på erfaringene og resultatene oppnådd gjennom utviklingen av tegneroboten.
+7.1	Hovedkonklusjoner
+Prosjektet har demonstrert at en interaktiv tegnerobot har potensialet til å ha en bidragende effekt innen pedagogiske formål. Kvalitativ brukertesting tyder på at det kan brukes som et verktøy for opplæring i programmering, matematikk og robotikk:
+Funksjonalitet: Tegneroboten fungerer i samsvar med de tekniske spesifikasjonene og er i stand til å utføre komplekse tegneoppgaver med høy nøyaktighet. Det bør derimot undersøkes om steppermotor uten girkasse vil forbedre unøyaktigheten i plassering av linjer.
+Pedagogisk verdi: Roboten har vist seg å stimulere interesse og forståelse for geometriske konsepter blant elever, som bekreftet gjennom både kvantitative tester og kvalitative tilbakemeldinger. Tilbakemeldinger økt funksjonalitet og mer beskrivende komponenter kunne forbedre brukeropplevelsen ytterligere.
+Brukervennlighet: Grensesnittet er intuitivt og lett å bruke, noe som gjør teknologien tilgjengelig selv for yngre brukere uten omfattende forhåndskunnskaper i programmering eller teknologi.
+7.2	Vurdering av hypotesene
+De hypotesene som ble satt i starten av prosjektet ble i stor grad bekreftet. Et brukersentrert design, kombinert med iterative utviklingsprosesser og administrativ oversikt, har ført til et resultat som oppfyller grunnleggende og utvidete mål. Prosjektet vurderes til å underbygge den innledende teoretiske forståelsen og valgene som ble gjort i designfasen. 
+Den dokumenterte tilbakemeldingen fra brukertesting tyder på at produktet ble positivt mottatt og har potensiale til å fremme læring innenfor relevante domener. Dette prosjektet legger et solid grunnlag for fremtidig videre utvikling og forskning.
+7.3	Anbefalinger for fremtidige arbeider
+Basert på prosjektets utfall, er det flere forbedringer og utvidelser som kan betraktes:
+Teknisk Forbedring: Videre arbeid kan inkludere finjustering av styringssystemene for å øke presisjonen og påliteligheten ytterligere. Spesielt bør fokuset ligge på å forbedre motorenes respons i komplekse tegneoppgaver.
+Programvareutvikling: Utnyttelsen av mer avanserte algoritmer for bildegjenkjenning og automatisert tegning kan utvide robotens funksjoner betydelig, åpne for mer avanserte bruksscenarioer.
+Utdanningsintegrasjon: Det anbefales å samarbeide tettere med undervisningsinstitusjoner for å tilpasse roboten til spesifikke læreplaner og undervisningsbehov, samt for å maksimere dens pedagogiske potensiale.
+Tilgjengelighetsforbedringer: Sikre at teknologien er tilgjengelig for alle elever, uavhengig av sosioøkonomisk bakgrunn, for å motvirke teknologisk ulikhet i utdanningssektoren.
+Finpusse kode: Koden fra simulatoren ble ikke inkludert som en del av MakeCode Extension som leveres. Feilene som oppstod ved testing, har ikke blitt utredet og kan danne et grunnlag for videre utvikling av tegnerobotens kode. Spesifikt vill det være nødvendig å tilpasse koden til MakeCodes beste praksis, struktur og stil slik at den nærmere etterligner koden fra andre MakeCode prosjekter og fra eksemplene de byr på. På denne måten vil koden være mer brukervennlig og enklere å forstå for personer som er kjent med plattformen.
+7.4	Sluttord
+Tegnerobotprosjektet har vist hvordan innovative løsninger kan bryte ned komplekse teoretiske konsepter til engasjerende og lærerike aktiviteter. 
+Disse resultatene understreker viktigheten av tverrfaglig samarbeid og teknologisk innovasjon i pedagogiske sammenhenger. 
+Gjennom kontinuerlig utvikling og forbedring kan prosjekter som dette endre måten lærere underviser på, til det bedre.
+ 
+8	Referanser
+[1] MakeKit. Hentet fra: https://www.makekit.no/ (accessed 27 Mai, 2024).
+[2] B. Micro:bit. "BBC micro:bit MicroPython documentation." Hentet fra: https://microbit-micropython.readthedocs.io/en/v2-docs/index.html (accessed Mar 21, 2024).
+[3] Microsoft. "MakeCode - micro:bit." Hentet fra: https://makecode.microbit.org/ (accessed 4 Apr, 2024).
+[4] ARM. "ARM, Thumb, and ThumbEE instruction sets." https://developer.arm.com/documentation/dui0473/m/overview-of-the-arm-architecture/arm--thumb--and-thumbee-instruction-sets (accessed Mai 27, 2024).
+[5] Doran, G. T. "There's a S.M.A.R.T. way to write management's goals and objectives." Management Review, 70(11), pp. 35-36, 1981.
+[6] FN-Sambandet. "FNs bærekraftsmål." https://fn.no/om-fn/fns-baerekraftsmaal (accessed Mai 27, 2024).
+[7] W3C. "WebApplication." Hentet fra: https://www.w3.org/html/wg/wiki/WebApplication (accessed Mai 27, 2024).
+[8] LiveReload for VS Code. (2024). [Online]. Available: https://marketplace.visualstudio.com/items?itemName=ziishaned.livereload
+[9] Haverbeke, Marijn. Eloquent javascript: A modern introduction to programming. No Starch Press, 2018.
+[10] BBC. "Bitesize." Hentet fra: https://www.bbc.co.uk/bitesize/guides/z6x26yc/revision/6 (accessed Mai 27, 2024).
+[11] L. M. University. "Programming Paradigms." Hentet fra: https://cs.lmu.edu/~ray/notes/paradigms/ (accessed Mai 27, 2024).
+[12] MDN. "JavaScript language overview." Hentet fra: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_overview (accessed Mai 27, 2024).
+[13] Siemens. "Embedded software." Hentet fra: https://www.sw.siemens.com/en-US/technology/embedded-software/ (accessed Mai 27, 2024).
+[14] Microsoft. "On Start." Hentet fra: https://makecode.microbit.org/blocks/on-start (accessed Mai 27, 2024).
+[15] Microsoft. "forever." Hentet fra: https://makecode.microbit.org/reference/basic/forever (accessed Mai 27, 2024).
+[16] Atlassian. "What is version control?" Hentet fra: https://www.atlassian.com/git/tutorials/what-is-version-control (accessed Mai 27, 2024).
+[17] Cadence. "What is a Version Control System?" Hentet fra: https://resources.pcb.cadence.com/blog/what-is-a-version-control-system (accessed Mai 27, 2024).
+[18] Coreldraw. "How Do Vector Graphics Work?" Hentet fra: https://www.coreldraw.com/en/learn/guide-to-vector-design/how-do-vector-graphics-work/ (accessed Mai 27, 2024).
+[19] WRC. "Scalable Vector Graphics (SVG) 2." Hentet fra: https://www.w3.org/TR/SVG/ (accessed Mai 27, 2024).
+[20] Wikipedia. "Scalable Vector Graphics." Hentet fra: https://no.wikipedia.org/wiki/Scalable_Vector_Graphics (accessed Mai 27, 2024).
+[21] Toytales. Hentet fra: https://toytales.ca/etch-a-sketch-from-ohio-art-company-1960/ (accessed Mai 27, 2024).
+[22] Wikipedia. "Mikrokontroller." Hentet fra: https://no.wikipedia.org/wiki/Mikrokontroller (accessed Mai 27, 2024).
+[23] K. Beck et al., "Manifesto for Agile Programvare Development," 2001. [Online]. Available: https://agilemanifesto.org/
+[24] https://en.wikipedia.org/wiki/Iterative_and_incremental_development#/media/File:Iterative_Process_Diagram.svg
+[25] K. Schwaber and J. Sutherland, "The Scrum Guide," 2020. [Online]. Available: https://scrumguides.org/
+[26] M. Cohn, Succeeding with Agile: Programvare Development Using Scrum. Addison-Wesley, 2010.
+[27] N. Harrison and P. Avgeriou, "Patterns for Continuous Delivery: An Ongoing Literature Review," ACM SIGSOFT Programvare Engineering Notes, vol. 40, no. 5, 2015.
+[28] R. Pressman, Programvare Engineering: A Practitioner's Approach, 8th ed. McGraw-Hill, 2014.
+[29] J. Humble and D. Farley, Continuous Delivery: Reliable Programvare Releases through Build, Test, and Deployment Automation. Addison-Wesley, 2010.
+[30] I. d. foundation. "User Centered Design (UCD)." Hentet fra: https://www.interaction-design.org/literature/topics/user-centered-design (accessed Mai 27, 2024).
+[31] J. Nielsen, Usability Engineering. Morgan Kaufmann, 1993.
+[32] T. Brown, Change by Design: How Design Thinking Transforms Organizations and Inspires Innovation. Harper Business, 2009.
+[33] H. Kniberg and M. Skarin, Kanban and Scrum - Making the Most of Both. C4Media, 2010.
+[34] D. Anderson, Kanban: Successful Evolutionary Change for Your Technology Business. Blue Hole Press, 2010.
+[35] M. Poppendieck and T. Poppendieck, Lean Programvare Development: An Agile Toolkit. Addison-Wesley, 2003.
+[36] K. Rubin, Essential Scrum: A Practical Guide to the Most Popular Agile Process. Addison-Wesley, 2012.
+[37] M. Cohn, User Stories Applied: For Agile Programvare Development. Addison-Wesley, 2004.
+[38] J. S. Sutherland and K. Schwaber, "The Scrum Guide," 2020. [Online]. Available: https://scrumguides.org/ (Besøkt 27 Mai, 2024)
+[39] MDN. "JavaScript." Hentet fra: https://developer.mozilla.org/en-US/docs/Web/JavaScript (accessed Mai 27, 2024).
+[40] Microsoft. "TypeScript for JavaScript Programmers." Hentet fra: https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html (accessed Mai 27, 2024).
+[41] Microsoft. "Extensions." Hentet fra: https://makecode.microbit.org/extensions (accessed Mai 27, 2024).
+[42] Potrace: a polygon-based tracing algorithm. (2003). [Online]. Available: https://potrace.sourceforge.net
+[43] Popper, K. (1959). The Logic of Scientific Discovery. London: Hutchinson.
+[44] Fisher (1925). Statistical Methods for Research Workers. Edinburgh: Oliver and Boyd.
+[45] A. Microsystems, "PCA9557 8-bit I2C-bus and SMBus I/O port with reset," 2013.
+[46] shaoziyang. "micropython-libs." https://github.com/micropython-Chinese-Community/mpy-lib (accessed 27 Mai, 2024).
+[47] AliExpress. "Nema17 17HS4023 Stepper Motor." https://www.aliexpress.com (accessed 26 Mai, 2024).
+ 
+
+
+
+ 
+9	Liste over figurer
+Figur 1: Hvordan tegneroboten samhandler med micro:bit og Makecode.	1
+Figur 2: FN Bærekrafts ikoner. Kilde: [6].	3
+Figur 3: Simulator og tegnerobot sammenligning. Kilde: Henrik C. Mauroy & Oliver Sokol.	5
+Figur 4: Representasjon av itererende webapplikasjon utviklings prosess. Kilde: Oliver Sokol	6
+Figur 5: Representasjon av versjonskontroll. Kilde: [17].	7
+Figur 6: Bilde av forskjell mellom bitmap og vektorgrafikk. Kilde: [20].	8
+Figur 7: Bilde av en kartesisk 3D-printer av typen FDM.	9
+Figur 8: Den iterative forbedringsyklusen. Kilde: [24]	11
+Figur 9: Diagram av brukersentrert design konsepter. Kilde: [30]	12
+Figur 10: Overordnet domenemodell av systemet	20
+Figur 11: Domenemodell av tegneroboten i form av et UML-diagram	21
+Figur 12: De elektriske komponentene og deres tilkoblinger.	22
+Figur 13: Diagram som viser pulsene for x- og y-aksen med Bresenham-stepping.	23
+Figur 14: Originalbildet (venstre) går gjennom flere filtre	24
+Figur 15: Bilde av tegnerobotens modifiserte prototype i versjon 5. Kilde: Henrik C. Mauroy.	26
+Figur 16: Forenklet diagram av Tegnesimulator. Kilde: Oliver Sokol	28
+Figur 17: SVG-fil av de tre gruppemedlemmene.	31
+Figur 18: Tegning av SVG-filen i Figur 17.	31
+Figur 19: Venstre: Elev som deltok i brukertest ved Foss Vgs.	33
+ 
+10	Liste over tabeller
+Tabell 1: Prosjektets fem hypoteser og hvordan disse skal testes eller evalueres	2
+Tabell 2: De fire opprinnelige mål og ønsker fra MakeKit	2
+Tabell 3: Endelige Mål og Brukerkrav	3
+Tabell 4: programvarekomponenter og relasjon til hypoteser	16
+Tabell 5: Maskinvarekomponenter og relasjon til hypoteser	17
+Tabell 6: Metoder i Scrumban	17
+Tabell 7: Metoder valgt bort ved overgangen til Kanban.	18
+Tabell 8: Metoder valgt inn ved overgangen til Kanban.	18
+Tabell 9: Risikoer, konsekvenser, tiltak og læringspunkter identifisert i prosjektet.	19
+Tabell 10: Ulike enhets- og integrasjonstester for tegnerobotens komponenter.	27
+Tabell 11: Målte lengder langs x- og y-aksen sammenliknet med teoretiske verdier.	30
+Tabell 12: Evaluering og diskusjon av prosjektets hypoteser.	35
+Tabell 13: Evaluering av målsetningers oppnåelse.	35
+
+ 
+11	Liste over akronymer og forkortelser
+•	SVG - Scalable Vector Graphics, et vektorgrafikkformat.
+•	BMP - Bitmap, et format for lagring av digitale bilder.
+•	IDE - Integrated Development Environment, et integrert utviklingsmiljø for programvareutvikling.
+•	I2C - Inter-Integrated Circuit, en kommunikasjonsteknologi for å koble perifere integrerte kretser til prosessorer og mikrokontrollere.
+•	I/O - Input/Output, betegner inn- og utganger for data.
+•	GPIO - General Purpose Input/Output, allsidige inngangs- og utgangsporter på en mikrokontroller.
+•	DC - Direct Current, likestrøm.
+•	CI/CD - Continuous Integration/Continuous Delivery, kontinuerlig integrasjon/kontinuerlig levering, metoder innen programvareutvikling.
+•	UX - User Experience, brukeropplevelse.
+•	WIP - Work In Progress.
+•	JSON - JavaScript Object Notation, et lettvekts datautvekslingsformat.
+•	ARM - Advanced RISC Machine, en type prosessorarkitektur.
+•	BME280 - En type sensor for å måle temperatur, fuktighet og trykk.
+•	PCA9557 - En type I/O-utvidelseschip.
+
+ 
+12	Vedlegg
+Vedlegg A - Oppgavetekst
+Vedlegg B - Forprosjektrapport
+Vedlegg C - Kravdokumentasjon
+Vedlegg D - Systemdokumentasjon
+Vedlegg E - Prosessdokument
+Vedlegg F - Teori om Tegneroboten
+Vedlegg G - Domenemodeller
+Vedlegg H - Flytdiagrammer
+Vedlegg I - Teknisk utvikling
+Vedlegg J - Bruk av simulatoren i testfasen
+Vedlegg K - Enhetstesting
+Vedlegg L - Kodesnutter
+Vedlegg M - Brukerdokumentasjon
+Vedlegg N - Gantt-diagram
+Vedlegg O - Realistisk Gantt-diagram
+Vedlegg P - Simulatorkode
+Vedlegg Q - Målsetninger
+
+
+
+
