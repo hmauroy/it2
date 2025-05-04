@@ -10,7 +10,22 @@ windowWidth = 700
 windowHeight = 700
 canvas_height = 600
 canvas_width = windowWidth
-window.minsize(windowWidth, windowHeight)    # Setter størrelsen.
+window_width = 800
+window_height = 800
+window.minsize(window_width,window_height)
+# MacOS har et nylig problem med fokus for popup-vinduer
+# Sentrer vinduet på skjermen
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+x = (screen_width // 2) - (window_width // 2)
+y = (screen_height // 2) - (window_height // 2)
+window.geometry(f'{window_width}x{window_height}+{x}+{y}')
+
+# Fjern vindu midlertidig
+window.withdraw()  
+window.update()
+#vis vinduet igjen
+window.deiconify()
 
 # 1) Lager en header for overskrift
 header = tk.Canvas(frame1, width=windowWidth, height=100)
@@ -108,6 +123,7 @@ def drepAlleCeller():
             
 
 def genererNyttBrett():
+    fjernAlleCeller()
     for i in range(HOYDE):
         for j in range(BREDDE):
             celle = cells[i][j]
