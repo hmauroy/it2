@@ -60,6 +60,23 @@ def handle_avslutt(event):
 
 avslutt.bind("<Button-1>", handle_avslutt)
 
+# Tastaturkontroll med piltaster.
+RETNING = "R"
+def processKeypress(evt):
+    global RETNING
+    key = evt.keysym
+    print(f'key: {key}')
+    if key == "Left":
+        RETNING = "L"
+    elif key == "Up":
+        RETNING = "U"
+    elif key == "Right":
+        RETNING = "R"
+    elif key == "Down":
+        RETNING = "D"
+
+window.bind("<Key>",processKeypress)
+
 
 def tilfeldigPos(type):
     global BREDDE
@@ -123,7 +140,7 @@ intervall = 1 / fps
 while isRunning:
     if time.time() - forrige_tid >= intervall:
         forrige_tid = time.time()
-        isRunning = brett.oppdater(canvas)
+        isRunning = brett.oppdater(canvas,RETNING)
 
 
     # Refresh vindu

@@ -38,13 +38,25 @@ class Spillebrett:
             )
             canvas.create_text(objekt.xPosisjon, objekt.yPosisjon, text=objekt.text, font=("Arial", 14), fill="black")
 
-    def oppdater(self, canvas):
+    def oppdater(self, canvas, retning):
         """Oppdaterer alt
-        1) Flytt alle objekt
+        1) 
         2) Sjekk for kollisjon mellom objekter eller vegger.
-        3) Flytt alle objekt fra canvas
-        4) Dersom avslutning eller game over returneres False, ellers True.
+        3) Fjern alle objekt fra canvas
+        4) Tegn alle objekt fra canvas med nye posisjoner
+        5) Dersom avslutning eller game over returneres False, ellers True.
         """
+        # 1) Flytt alle objekt
+        for obj in self.objekter:
+            if obj.text == "M":
+                obj.beveg(obj.fart,retning)
+        # 3)
+        for obj in self.objekter:
+            if obj.text == "M" or obj.text == "S":
+                canvas.delete(obj.id)
+        self.tegnAlleObjekt(canvas)
+
+
         return True
     
     
@@ -58,7 +70,7 @@ class Spillobjekt:
         self.farge = "grey"
         self.text = "H"
         self.bredde = bredde
-        self.id = Spillobjekt.teller
+        self.id = f"{Spillobjekt.teller}"
         Spillobjekt.teller += 1 # Øker med én så neste objekt får en ny id.
     
     def plassering(self,x,y):
