@@ -42,6 +42,7 @@ footer.pack()
 
 
 # Kjører GUI-tråden
+window.update()
 window.mainloop()
 
 
