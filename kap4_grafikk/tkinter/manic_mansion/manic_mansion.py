@@ -82,7 +82,7 @@ brett = Spillebrett(canvas_height, canvas_width)
 BREDDE = 30
 x,y = tilfeldigPos("M")
 M = Menneske(x,y,BREDDE,5) # Starter på venstre side
-brett.leggTileObjekt(M)
+
 x,y = tilfeldigPos("BÆ")
 S1 = Sau(x,y,BREDDE)
 x,y = tilfeldigPos("BÆ")
@@ -90,9 +90,24 @@ S2 = Sau(x,y,BREDDE)
 x,y = tilfeldigPos("BÆ")
 S3 = Sau(x,y,BREDDE)
 
+x,y = tilfeldigPos("S")
+SP = Spøkelse(x,y,BREDDE,10,7,[100,0,canvas_width-100,canvas_height])
+
+x,y = tilfeldigPos("H")
+H1 = Hindring(x,y,BREDDE)
+x,y = tilfeldigPos("H")
+H2 = Hindring(x,y,BREDDE)
+x,y = tilfeldigPos("H")
+H3 = Hindring(x,y,BREDDE)
+
+brett.leggTileObjekt(M)
 brett.leggTileObjekt(S1)
 brett.leggTileObjekt(S2)
 brett.leggTileObjekt(S3)
+brett.leggTileObjekt(SP)
+brett.leggTileObjekt(H1)
+brett.leggTileObjekt(H2)
+brett.leggTileObjekt(H3)
 
 brett.tegnAlleObjekt(canvas)
 

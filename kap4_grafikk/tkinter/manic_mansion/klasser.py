@@ -122,7 +122,7 @@ class Spøkelse(Spillobjekt):
         super().__init__(xStart, yStart, bredde)
         self.xFart = xFart
         self.yFart = yFart
-        self.farge = "darkgrey"
+        self.farge = "#eeeeee"
         self.text = "S"
         self.bb = bounding_box
     
