@@ -25,6 +25,10 @@ class Spillebrett:
     
     def tegnAlleObjekt(self, canvas):
         """Går gjennom alle objekter og tegner dem."""
+        # Sletter alle objekter fra canvas før tegning på nytt
+        for obj in self.objekter:
+            if obj.text == "M" or obj.text == "S":
+                canvas.delete(obj.id)
         for objekt in self.objekter:
             canvas.create_rectangle(
                 objekt.xPosisjon - objekt.bredde/2,
@@ -42,21 +46,30 @@ class Spillebrett:
         """Oppdaterer alt
         1) 
         2) Sjekk for kollisjon mellom objekter eller vegger.
-        3) Fjern alle objekt fra canvas
-        4) Tegn alle objekt fra canvas med nye posisjoner
+        
         5) Dersom avslutning eller game over returneres False, ellers True.
         """
-        # 1) Flytt alle objekt
+        # 1) Flytt alle objekt og 2) sjekk for kollisjoner
         for obj in self.objekter:
             if obj.text == "M":
                 obj.beveg(obj.fart,retning)
+                for objekt2 in self.objekter:
+                    if obj.text != objekt2.text:
+                        kollisjon = obj.sjekkKollisjon(objekt2)
+                        # Håndterer kollisjoner
+                        if kollisjon:
+                            self.tegnAlleObjekt(canvas)
+                            if objekt2.text == "S":
+                                return False
+                #if obj.sjekkKollisjon() == True:
+                    # Avslutter spillet hvis kollisjon med spøkelse eller hindring.
+                #    return False
             if obj.text == "S":
                 obj.flytt(obj.xFart,obj.yFart)
                 obj.endreRetning()
         # 3) Fjerner alle objekt fra canvas.
-        for obj in self.objekter:
-            if obj.text == "M" or obj.text == "S":
-                canvas.delete(obj.id)
+        
+        # 4) Tegn alle objekt fra canvas med nye posisjoner
         self.tegnAlleObjekt(canvas)
 
 
@@ -130,8 +143,18 @@ class Menneske(Spillobjekt):
             self.bærerSau = True
             return True
     
-    def sjekkKollisjon(self):
+    def sjekkKollisjon(self,objekt2):
         """Sjekker for kollisjon med alle andre objekter"""
+        # Sjekker for om det IKKE er overlapp med det andre objektet
+        # Returnerer motsatt boolean verdi.
+        if (self.xPosisjon + self.bredde / 2 <= objekt2.xPosisjon - objekt2.bredde / 2 or  # this right edge is left of objekt2's left edge
+            self.xPosisjon - self.bredde / 2 >= objekt2.xPosisjon + objekt2.bredde / 2 or  # this left edge is right of objekt2's right edge
+            self.yPosisjon + self.bredde / 2 <= objekt2.yPosisjon - objekt2.bredde / 2 or  # this bottom edge is above objekt2's top edge
+            self.yPosisjon - self.bredde / 2 >= objekt2.yPosisjon + objekt2.bredde / 2):  # this top edge is below other's bottom edge
+            return False
+        print("Kollison!")
+        return True
+
 
 class Spøkelse(Spillobjekt):
     def __init__(self, xStart, yStart, bredde, xFart, yFart, bounding_box=[0,0,500,500]):
