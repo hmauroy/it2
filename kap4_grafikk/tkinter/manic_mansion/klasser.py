@@ -36,7 +36,7 @@ class Spillebrett:
                 width=1,
                 tags = objekt.id
             )
-            canvas.create_text(objekt.xPosisjon, objekt.yPosisjon, text=objekt.text, font=("Arial", 14), fill="black")
+            canvas.create_text(objekt.xPosisjon, objekt.yPosisjon, text=objekt.text, font=("Arial", 14), fill="black", tags=objekt.id)
 
     def oppdater(self, canvas, retning):
         """Oppdaterer alt
@@ -50,7 +50,10 @@ class Spillebrett:
         for obj in self.objekter:
             if obj.text == "M":
                 obj.beveg(obj.fart,retning)
-        # 3)
+            if obj.text == "S":
+                obj.flytt(obj.xFart,obj.yFart)
+                obj.endreRetning()
+        # 3) Fjerner alle objekt fra canvas.
         for obj in self.objekter:
             if obj.text == "M" or obj.text == "S":
                 canvas.delete(obj.id)
@@ -70,7 +73,8 @@ class Spillobjekt:
         self.farge = "grey"
         self.text = "H"
         self.bredde = bredde
-        self.id = f"{Spillobjekt.teller}"
+        #self.id = f"{Spillobjekt.teller}"
+        self.id = "brikke"
         Spillobjekt.teller += 1 # Øker med én så neste objekt får en ny id.
     
     def plassering(self,x,y):
@@ -143,9 +147,11 @@ class Spøkelse(Spillobjekt):
         super().plassering(x, y)
     
     def endreRetning(self):
-        """Ved kollisjon med en av veggene så skal en akse endre retning."""
+        """Ved kollisjon med en av veggene så skal en akse endre retning.
+        self.bb = [x1,y1,x2,y2] setter grensene til hvor spøkelset kan bevege seg.
+        """
         if self.xPosisjon <= self.bb[0]:    # venstre vegg
-            self.xPosisjon = self.bredde/2  # flytter inn på brettet hvis utenfor.
+            self.xPosisjon = self.bb[0] + self.bredde/2  # flytter inn på brettet hvis utenfor.
             self.xFart = -self.xFart
         elif self.xPosisjon >= self.bb[2]:  # høyre vegg
             self.xPosisjon = self.bb[2] - self.bredde/2

@@ -108,7 +108,7 @@ x,y = tilfeldigPos("BÆ")
 S3 = Sau(x,y,BREDDE)
 
 x,y = tilfeldigPos("S")
-SP = Spøkelse(x,y,BREDDE,10,7,[100,0,canvas_width-100,canvas_height])
+SP = Spøkelse(x,y,BREDDE,15,12,[100,0,canvas_width-100,canvas_height])
 
 x,y = tilfeldigPos("H")
 H1 = Hindring(x,y,BREDDE)
