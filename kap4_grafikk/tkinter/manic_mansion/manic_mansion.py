@@ -1,6 +1,5 @@
 import tkinter as tk
 import time
-from random import randrange
 
 from klasser import *
 
@@ -79,55 +78,25 @@ def processKeypress(evt):
 window.bind("<Key>",processKeypress)
 
 
-def tilfeldigPos(type):
-    global BREDDE
-    """Genererer tilfeldig koordinat i forhold til hvor på brettet objektene skal starte."""
-    boundingbox = [] # [x1,y1, x2,y2]
-    if type == "M":
-        boundingbox = [BREDDE,BREDDE,100-BREDDE, canvas_height-BREDDE]
-    elif type == "S" or type == "H":
-        boundingbox = [100 + BREDDE,BREDDE,canvas_width-100-BREDDE, canvas_height-BREDDE]
-    elif type == "BÆ":
-        boundingbox = [canvas_width-100+BREDDE,BREDDE,canvas_width-BREDDE, canvas_height-BREDDE]
-    x = randrange(boundingbox[0],boundingbox[2])
-    y = randrange(boundingbox[1],boundingbox[3])
-    return x,y
+
 
 
 # Oppretter spillbrett og spillbrikker.
 # Spillbrettet har 100 px på hver side som er frisoner.
-brett = Spillebrett(canvas_height, canvas_width)
 BREDDE = 30
-x,y = tilfeldigPos("M")
+brett = Spillebrett(canvas_height, canvas_width, canvas, BREDDE)
+
+x,y = brett.tilfeldigPos("M")
 M = Menneske(x,y,BREDDE,10) # Starter på venstre side
+brett.leggTilObjekt(M)
 
-x,y = tilfeldigPos("BÆ")
-S1 = Sau(x,y,BREDDE)
-x,y = tilfeldigPos("BÆ")
-S2 = Sau(x,y,BREDDE)
-x,y = tilfeldigPos("BÆ")
-S3 = Sau(x,y,BREDDE)
+brett.lagSpøkelse()
 
-x,y = tilfeldigPos("S")
-SP = Spøkelse(x,y,BREDDE,2,3,[100,0,canvas_width-100,canvas_height])
+for i in range(3):
+    brett.lagSau()
+    brett.lagHindring()
 
-x,y = tilfeldigPos("H")
-H1 = Hindring(x,y,BREDDE)
-x,y = tilfeldigPos("H")
-H2 = Hindring(x,y,BREDDE)
-x,y = tilfeldigPos("H")
-H3 = Hindring(x,y,BREDDE)
-
-brett.leggTileObjekt(M)
-brett.leggTileObjekt(S1)
-brett.leggTileObjekt(S2)
-brett.leggTileObjekt(S3)
-brett.leggTileObjekt(SP)
-brett.leggTileObjekt(H1)
-brett.leggTileObjekt(H2)
-brett.leggTileObjekt(H3)
-
-brett.tegnAlleObjekt(canvas)
+brett.tegnAlleObjekt()
 
 
 
@@ -141,7 +110,7 @@ intervall = 1 / fps
 while isRunning:
     if time.time() - forrige_tid >= intervall:
         forrige_tid = time.time()
-        isRunning = brett.oppdater(canvas,RETNING)
+        isRunning = brett.oppdater(RETNING)
 
 
     # Refresh vindu

@@ -6,13 +6,17 @@ Henrik Mauroy
 hmauroy@gmail.com
 """
 
+from random import randrange
+
 class Spillebrett:
-    def __init__(self,h,b):
+    def __init__(self,h,b,canvas,brikkebredde):
         self.høyde = h
         self.bredde = b
         self.objekter = []
+        self.canvas = canvas
+        self.brikkebredde = brikkebredde
     
-    def leggTileObjekt(self, objekt):
+    def leggTilObjekt(self, objekt):
         self.objekter.append(objekt)
     
     def fjernObjekt(self, objekt):
@@ -23,17 +27,47 @@ class Spillebrett:
         else:
             return False
     
-    def tegnAlleObjekt(self, canvas):
+    def friPlass(self, type):
+        freePos = False
+        while freePos == False:
+            x,y = self.tilfeldigPos(type)
+            # Søker gjennom objektene og leter etter like koordinater for samme type.
+            for obj in self.objekter:
+                if obj.text == type:
+                    if (obj.xPosisjon - self.brikkebredde/2 <= x <= obj.xPosisjon + self.brikkebredde/2  and 
+                    obj.yPosisjon - self.brikkebredde/2 <= y <= obj.yPosisjon + self.brikkebredde/2):
+                        print("Opptatt posisjon")
+            freePos = True
+        return x,y
+
+    def lagSpøkelse(self):
+        x,y = self.friPlass("S")
+        xFart = randrange(1,5)
+        yFart = randrange(1,5)
+        s = Spøkelse(x,y,self.brikkebredde,xFart,yFart,[100,0,self.bredde-100,self.høyde])
+        self.objekter.append(s)
+
+    def lagSau(self):
+        x,y = self.friPlass("BÆ")
+        sau = Sau(x,y,self.brikkebredde)
+        self.objekter.append(sau)
+                    
+    def lagHindring(self):
+        x,y = self.friPlass("H")
+        hindring = Hindring(x,y,self.brikkebredde)
+        self.objekter.append(hindring)
+
+    def tegnAlleObjekt(self):
         """Går gjennom alle objekter og tegner dem."""
         # Sletter alle objekter fra canvas før tegning på nytt
         for obj in self.objekter:
             if obj.text == "M" or obj.text == "S":
-                canvas.delete(obj.id)
+                self.canvas.delete(obj.id)
         for objekt in self.objekter:
             # Må sjekke om det er sau og at den skal tegnes opp
             if objekt.text == "BÆ" and objekt.blirBåret == True:
                 continue
-            canvas.create_rectangle(
+            self.canvas.create_rectangle(
                 objekt.xPosisjon - objekt.bredde/2,
                 objekt.yPosisjon - objekt.bredde/2,
                 objekt.xPosisjon + objekt.bredde/2,
@@ -43,9 +77,9 @@ class Spillebrett:
                 width=1,
                 tags = objekt.id
             )
-            canvas.create_text(objekt.xPosisjon, objekt.yPosisjon, text=objekt.text, font=("Arial", 14), fill="black", tags=objekt.id)
+            self.canvas.create_text(objekt.xPosisjon, objekt.yPosisjon, text=objekt.text, font=("Arial", 14), fill="black", tags=objekt.id)
 
-    def oppdater(self, canvas, retning):
+    def oppdater(self, retning):
         """Oppdaterer alt
         1) 
         2) Sjekk for kollisjon mellom objekter eller vegger.
@@ -60,22 +94,20 @@ class Spillebrett:
                 if obj.xPosisjon <= 80 and obj.bærerSau == True:
                     obj.poeng += 1
                     obj.bærerSau = False
+                    obj.okFart(5)
                     obj.sau.fjernSau()  # Kan ikke plukkes opp igjen.
                     obj.sau.blirBåret = False
                     obj.sau.xPosisjon = obj.xPosisjon
                     obj.sau.yPosisjon = obj.yPosisjon
-                # 5) Sjekk om spiller har fått 3 poeng
-                if obj.poeng >= 3:
-                    print("Spiller vant :)")
-                    obj.sau.xPosisjon -= 40
-                    self.tegnAlleObjekt(canvas)
-                    return False
+                    self.lagSau()
+                    self.lagSpøkelse()
+                    self.lagHindring()
                 # 3) Håndterer kollisjoner ved å sjekke med alle andre objekter for kollisjon.
                 for objekt2 in self.objekter:
                     if obj.text != objekt2.text:
                         kollisjon = obj.sjekkKollisjon(objekt2)
                         if kollisjon:
-                            self.tegnAlleObjekt(canvas)
+                            self.tegnAlleObjekt()
                             if objekt2.text == "S" or objekt2.text == "H":
                                 print("Spiller tapte :(")
                                 return False
@@ -83,21 +115,28 @@ class Spillebrett:
                                 if objekt2.aktiv == True:
                                     objekt2.blirBåret = True
                                     obj.bærerSau = True
+                                    obj.reduserFart(5)
                                     obj.sau = objekt2   # Legger sau-objektet inni menneskeobjektet.
             if obj.text == "S":
                 obj.flytt(obj.xFart,obj.yFart)
                 obj.endreRetning()
         
-        
-         
-        
         # 4) Tegn alle objekt fra canvas med nye posisjoner
-        self.tegnAlleObjekt(canvas)
-
-
+        self.tegnAlleObjekt()
         return True
     
-    
+    def tilfeldigPos(self,type):
+        """Genererer tilfeldig koordinat i forhold til hvor på brettet objektene skal starte."""
+        boundingbox = [] # [x1,y1, x2,y2]
+        if type == "M":
+            boundingbox = [self.brikkebredde,self.brikkebredde,100-self.brikkebredde, self.høyde-self.brikkebredde]
+        elif type == "S" or type == "H":
+            boundingbox = [100 + self.brikkebredde,self.brikkebredde,self.bredde-100-self.brikkebredde, self.høyde-self.brikkebredde]
+        elif type == "BÆ":
+            boundingbox = [self.bredde-100+self.brikkebredde,self.brikkebredde,self.bredde-self.brikkebredde, self.høyde-self.brikkebredde]
+        x = randrange(boundingbox[0],boundingbox[2])
+        y = randrange(boundingbox[1],boundingbox[3])
+        return x,y
 
 
 class Spillobjekt:
@@ -154,7 +193,10 @@ class Menneske(Spillobjekt):
     def reduserFart(self, reduksjon):
         self.fart -= reduksjon
         if self.fart <= 0:
-            self.fart = 0
+            self.fart = 1
+    
+    def okFart(self, okning):
+        self.fart += okning
     
     def økPoeng(self, antall):
         self.poeng += antall
