@@ -30,6 +30,9 @@ class Spillebrett:
             if obj.text == "M" or obj.text == "S":
                 canvas.delete(obj.id)
         for objekt in self.objekter:
+            # Må sjekke om det er sau og at den skal tegnes opp
+            if objekt.text == "BÆ" and objekt.blirBåret == True:
+                continue
             canvas.create_rectangle(
                 objekt.xPosisjon - objekt.bredde/2,
                 objekt.yPosisjon - objekt.bredde/2,
@@ -49,25 +52,44 @@ class Spillebrett:
         
         5) Dersom avslutning eller game over returneres False, ellers True.
         """
-        # 1) Flytt alle objekt og 2) sjekk for kollisjoner
+        # 1) Flytt alle objekt og sjekk for kollisjoner.
         for obj in self.objekter:
             if obj.text == "M":
                 obj.beveg(obj.fart,retning)
+                # 2) Sjekk om menneske er tilbake i venstre frisone, da skal sau slippes løs.
+                if obj.xPosisjon <= 80 and obj.bærerSau == True:
+                    obj.poeng += 1
+                    obj.bærerSau = False
+                    obj.sau.fjernSau()  # Kan ikke plukkes opp igjen.
+                    obj.sau.blirBåret = False
+                    obj.sau.xPosisjon = obj.xPosisjon
+                    obj.sau.yPosisjon = obj.yPosisjon
+                # 5) Sjekk om spiller har fått 3 poeng
+                if obj.poeng >= 3:
+                    print("Spiller vant :)")
+                    obj.sau.xPosisjon -= 40
+                    self.tegnAlleObjekt(canvas)
+                    return False
+                # 3) Håndterer kollisjoner ved å sjekke med alle andre objekter for kollisjon.
                 for objekt2 in self.objekter:
                     if obj.text != objekt2.text:
                         kollisjon = obj.sjekkKollisjon(objekt2)
-                        # Håndterer kollisjoner
                         if kollisjon:
                             self.tegnAlleObjekt(canvas)
-                            if objekt2.text == "S":
+                            if objekt2.text == "S" or objekt2.text == "H":
+                                print("Spiller tapte :(")
                                 return False
-                #if obj.sjekkKollisjon() == True:
-                    # Avslutter spillet hvis kollisjon med spøkelse eller hindring.
-                #    return False
+                            elif objekt2.text == "BÆ" and obj.bærerSau == False:
+                                if objekt2.aktiv == True:
+                                    objekt2.blirBåret = True
+                                    obj.bærerSau = True
+                                    obj.sau = objekt2   # Legger sau-objektet inni menneskeobjektet.
             if obj.text == "S":
                 obj.flytt(obj.xFart,obj.yFart)
                 obj.endreRetning()
-        # 3) Fjerner alle objekt fra canvas.
+        
+        
+         
         
         # 4) Tegn alle objekt fra canvas med nye posisjoner
         self.tegnAlleObjekt(canvas)
@@ -107,6 +129,7 @@ class Menneske(Spillobjekt):
         self.bærerSau = False
         self.farge = "peachpuff"
         self.text = "M"
+        self.sau = None # Kan holde på en sau.
     
     def plassering(self, x, y):
         """Denne metoden bør ikke finns men er i UML-diagrammet."""
@@ -152,7 +175,6 @@ class Menneske(Spillobjekt):
             self.yPosisjon + self.bredde / 2 <= objekt2.yPosisjon - objekt2.bredde / 2 or  # this bottom edge is above objekt2's top edge
             self.yPosisjon - self.bredde / 2 >= objekt2.yPosisjon + objekt2.bredde / 2):  # this top edge is below other's bottom edge
             return False
-        print("Kollison!")
         return True
 
 

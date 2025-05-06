@@ -53,6 +53,7 @@ avslutt.pack()
 
 
 
+
 def handle_avslutt(event):
     global isRunning
     isRunning = False
@@ -98,7 +99,7 @@ def tilfeldigPos(type):
 brett = Spillebrett(canvas_height, canvas_width)
 BREDDE = 30
 x,y = tilfeldigPos("M")
-M = Menneske(x,y,BREDDE,20) # Starter på venstre side
+M = Menneske(x,y,BREDDE,10) # Starter på venstre side
 
 x,y = tilfeldigPos("BÆ")
 S1 = Sau(x,y,BREDDE)
@@ -108,7 +109,7 @@ x,y = tilfeldigPos("BÆ")
 S3 = Sau(x,y,BREDDE)
 
 x,y = tilfeldigPos("S")
-SP = Spøkelse(x,y,BREDDE,5,3,[100,0,canvas_width-100,canvas_height])
+SP = Spøkelse(x,y,BREDDE,2,3,[100,0,canvas_width-100,canvas_height])
 
 x,y = tilfeldigPos("H")
 H1 = Hindring(x,y,BREDDE)
@@ -135,7 +136,7 @@ brett.tegnAlleObjekt(canvas)
 start_tid = time.time()
 forrige_tid = time.time()
 isRunning = True
-fps = 10
+fps = 30
 intervall = 1 / fps
 while isRunning:
     if time.time() - forrige_tid >= intervall:
