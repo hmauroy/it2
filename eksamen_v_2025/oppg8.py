@@ -112,7 +112,8 @@ def finnMestPopulære(sortert) -> tuple:
             break
     return x,y
 
-def plot_bar_chart(chart_frame,categories,values,fylke):
+
+def plot_bar_chart(chart_frame,categories,values,fylke,prosent=False):
     # Clear any existing chart in the frame
     for widget in chart_frame.winfo_children():
         widget.destroy()
@@ -127,7 +128,10 @@ def plot_bar_chart(chart_frame,categories,values,fylke):
     # Add titles and labels
     ax.set_title(f"De tre mest populære aktivitetene for {fylke} fylke ")
     ax.set_xlabel("Kategorier")
-    ax.set_ylabel("Antall personer")
+    if prosent:
+        ax.set_ylabel("Prosentvis antall personer")
+    else:
+        ax.set_ylabel("Antall personer")
 
     # Embed the plot in Tkinter
     canvas = FigureCanvasTkAgg(fig, master=chart_frame)
@@ -158,13 +162,18 @@ def main():
     # og presentere dem i et stolpediagram.
     x,y = finnMestPopulære(sortert)
 
+    x_pros,y_pros = finnMestPopulære(prosentandeler)
+
     # Main Tkinter window
     root = tk.Tk()
     root.title("Tkinter Bar Chart Example")
     root.geometry("800x600")
 
     # Button to trigger the bar chart plot
-    plot_button = ttk.Button(root, text="Plot Bar Chart", command=lambda: plot_bar_chart(chart_frame,x,y,fylke))
+    plot_button = ttk.Button(root, text="Vis verdier", command=lambda: plot_bar_chart(chart_frame,x,y,fylke))
+    plot_button.pack(pady=10)
+
+    plot_button = ttk.Button(root, text="Vis prosentvis", command=lambda: plot_bar_chart(chart_frame,x_pros,y_pros,fylke,prosent=True))
     plot_button.pack(pady=10)
 
     # Frame to hold the chart
