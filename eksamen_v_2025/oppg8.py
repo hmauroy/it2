@@ -30,7 +30,6 @@ for i in range(len(fylker)):
     if "Trønd" in fylker[i] or "Nordland" in fylker[i] or "Troms" in fylker[i]:
        skille = fylker[i].index(" - ")
        fylker[i] = fylker[i][0:skille]
-print(fylker)
 
 # Datastrukturen
 data = {
@@ -77,7 +76,6 @@ def sorterVerdi(verdier,):
    return dict(sorted(verdier.items(), key=lambda item: item[1], reverse=False))
 
 def sorterProsent(verdier):
-    print(verdier)
     totalsum = 0
     for key,val in verdier.items():
         totalsum += val
@@ -90,10 +88,10 @@ def visTabellFylke(ordbok,fylke,overskrift,heltall=True):
     print()
     print()
     print(f"Antall personer per aktivitet for {fylke} fylke sortert i stigende rekkefølge.")
-    print(f'Kategori {" " * (60-len("Kategori"))} {overskrift}')
+    print(f'Kategori {" " * (50-len("Kategori"))} {overskrift}')
     for kategori,val in ordbok.items():
         lengde = len(kategori)
-        mellomrom = " " * (71-lengde)
+        mellomrom = " " * (60-lengde)
         if heltall:
             print(f"{kategori} {mellomrom} {val}")
         else:
@@ -165,11 +163,15 @@ def main():
     root.title("Tkinter Bar Chart Example")
     root.geometry("800x600")
 
+    # Button to trigger the bar chart plot
+    plot_button = ttk.Button(root, text="Plot Bar Chart", command=lambda: plot_bar_chart(chart_frame,x,y,fylke))
+    plot_button.pack(pady=10)
+
     # Frame to hold the chart
     chart_frame = tk.Frame(root)
     chart_frame.pack(fill=tk.BOTH, expand=True)
 
-    plot_bar_chart(chart_frame,x,y,fylke)
+    #plot_bar_chart(chart_frame,x,y,fylke)
 
     # Start the Tkinter event loop
     root.mainloop()
