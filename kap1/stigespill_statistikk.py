@@ -1,11 +1,31 @@
 """
-Vi starter nede i venstre hjørne og går mot høyre. Ved enden snur vi og går tilbake til venstre, og slik fortsetter vi ved hver ende.
+Du kan også la maskinen «spille» spillet mange ganger og få litt statistikk knyttet til spillet. 
+Hvor mange kast er det vanligste antallet kast som kreves for å vinne?
 
-Treffer vi en stige beveger vi oss til stigens ende, og tilsvarende om vi treffer en slange. Nedenfor kan du se en tabell som oppsummerer plasseringen av stiger og slanger.
+Hvor mange kast skal til før det er ganske sannsynlig at noen vinner? 
+Er alle stiger og slanger like «populære»? (Altså: Lander spillerne like ofte på hver av stigene?)
 
-Vinneren er den som først kommer i mål. Synes du man må vinne ved å lande direkte på målfeltet? Eller holder det å passere det for å vinne?
+
+Vi starter nede i venstre hjørne og går mot høyre. Ved enden snur vi og går 
+tilbake til venstre, og slik fortsetter vi ved hver ende.
+
+Treffer vi en stige beveger vi oss til stigens ende, og tilsvarende om 
+vi treffer en slange. Nedenfor kan du se en tabell som oppsummerer 
+plasseringen av stiger og slanger.
+
+Vinneren er den som først kommer i mål. Synes du man må vinne ved å 
+lande direkte på målfeltet? Eller holder det å passere det for å vinne?
 
 Tabell over stiger og slanger
+# [[fra posisjoner],[destinasjoner]]
+stiger = [
+    [1,  4,9, 21,28,36,51,71, 80],
+    [38,14,31,42,84,44,67,91,100]
+]
+slanger = [
+    [16,48,49,56,62,64,87,93,95,98],
+    [6, 26,11,53,19,60,24,73,75,78]
+]
 
 """
 
@@ -19,14 +39,14 @@ shadow = []
 players = []
 radstart = 111
 endring = -1
-# Lager stiger
+# Lager stiger, [[fra posisjoner],[destinasjoner]]
 stiger = [
-    [1,4,9,21,28,36,51,71,80],
+    [1,  4,9, 21,28,36,51,71, 80],
     [38,14,31,42,84,44,67,91,100]
 ]
 slanger = [
     [16,48,49,56,62,64,87,93,95,98],
-    [6,26,11,53,19,60,24,73,75,78]
+    [6, 26,11,53,19,60,24,73,75,78]
 ]
 for i in range(rader):
     if i % 2 == 0:
@@ -49,13 +69,7 @@ for i in range(rader):
         radstart += endring
 
 
-"""
-Du kan også la maskinen «spille» spillet mange ganger og få litt statistikk knyttet til spillet. 
-Hvor mange kast er det vanligste antallet kast som kreves for å vinne?
 
-Hvor mange kast skal til før det er ganske sannsynlig at noen vinner? 
-Er alle stiger og slanger like «populære»? (Altså: Lander spillerne like ofte på hver av stigene?) 
-"""
 
 # Lager en ordbok som kan lagre antall ganger hvert felt blir besøkt.
 statistikk = {
@@ -63,9 +77,9 @@ statistikk = {
     "felter": [0 for x in range(106)],
 
 }
-ant_repetisjoner = 100000
+ant_repetisjoner = 10000
 for i in range(ant_repetisjoner):
-    # Printer ut prosent fremdrift, bruker ressurser men kan være fint å se på.
+    # Printer ut prosent fremdrift, bruker CPU-ressurser men kan være fint å se på.
     if i % (10*ant_repetisjoner/100) == 0:
         print(f"{100* i / ant_repetisjoner:.0f} %")
 
@@ -119,31 +133,7 @@ for i in range(ant_repetisjoner):
                 if shadow[i][j] == posisjon:
                     m = i
                     n = j
-        #print(f"rad: {m}, kol: {n}")
 
-        """
-        # Skriver ut brettet
-        for i in range(rader):
-            for j in range(kolonner-1):
-                if i == m and j == n:
-                    print(" 🅿️ ", end=" ")
-                else:
-                    if isinstance(brett[i][j],str):
-                        if ord(brett[i][j]) == 129692:  # Stige-emoji har unicode-verdi 129692
-                            print(f" {brett[i][j]}", end="  ")
-                        elif ord(brett[i][j]) == 128013: # Slange-emoji har unicode-verdi. Bruker en plass mer.
-                            print(f" {brett[i][j]}", end=" ")
-                    else:
-                        print(f"{brett[i][j]:3}", end=" ")
-            if i == m and n == kolonner - 1:
-                print(" 🅿️ ")
-            elif isinstance(brett[i][j],str):
-                    if ord(brett[i][j]) > 1000:
-                        print(f" {brett[i][j]}")
-            else:
-                print(f"{brett[i][-1]:3}")
-        
-        """
     
 # Sorterer ordboken etter synkende frekvens.
 # ChatGPT 18. okt 2023 hjalp til med dette kompliserte lambdauttrykket vi ikke trenger å 
@@ -170,7 +160,17 @@ plt.title(f"Stigespill antall kast for å vinne etter {ant_repetisjoner} spill."
 plt.xlabel("Antall kast")
 plt.ylabel("Frekvens")
 
-#plt.show()
+plt.show()
+
+# Lager et plot over frekvensen til hvert felt
+felt_indekser = [x for x in range(0,106)]
+
+plt.bar(felt_indekser, statistikk["felter"],color="darkslateblue")
+plt.title(f"Stigespill antall besøk for hvert felt 0-103 etter {ant_repetisjoner} spill.")
+plt.xlabel("Felt indeks (0,1,2,...)")
+plt.ylabel("Frekvens")
+
+plt.show()
 
 
 # Skriver statistikk til fil (kapitttel 3B)

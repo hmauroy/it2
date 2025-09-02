@@ -15,6 +15,8 @@ from pydub.playback import play
 from klasser import *
 
 window = tk.Tk()
+window.lift()
+window.focus_force()
 frame1 = tk.Frame(window)
 frame1.pack()
 windowWidth = 500

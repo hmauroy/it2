@@ -34,7 +34,8 @@ for i in range(len(fylker)):
 # Datastrukturen
 data = {
   "fylker": fylker,
-  "kategorier": []
+  "kategorier": [],
+  # "Fisket": [83;185;143;120;75;64;57;98;157;258;89;185;110;67]
 }
 
 # Leser ut overskrifter og henter ut data

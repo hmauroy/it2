@@ -10,7 +10,7 @@ values = [10, 20, 15, 25]
 # Function to plot the bar chart
 
 
-def plot_bar_chart():
+def plot_bar_chart(chart_frame):
     # Clear any existing chart in the frame
     for widget in chart_frame.winfo_children():
         widget.destroy()
@@ -32,7 +32,7 @@ def plot_bar_chart():
     canvas.draw()
     canvas.get_tk_widget().pack()
 
-def plot_line_chart():
+def plot_line_chart(chart_frame):
     # Clear any existing chart in the frame
     for widget in chart_frame.winfo_children():
         widget.destroy()
@@ -60,17 +60,17 @@ root = tk.Tk()
 root.title("Tkinter Bar Chart Example")
 root.geometry("600x500")
 
-# Button to trigger the bar chart plot
-plot_button = ttk.Button(root, text="Plot Bar Chart", command=plot_bar_chart)
-plot_button.pack(pady=10)
-
-# Knapp for linjegraf
-plot_button_line = ttk.Button(root, text="Plot Line Chart", command=plot_line_chart)
-plot_button_line.pack(pady=10)
-
 # Frame to hold the chart
 chart_frame = tk.Frame(root)
 chart_frame.pack(fill=tk.BOTH, expand=True)
+
+# Button to trigger the bar chart plot
+plot_button = ttk.Button(root, text="Plot Bar Chart", command=lambda: plot_bar_chart(chart_frame))
+plot_button.pack(pady=10)
+
+# Knapp for linjegraf
+plot_button_line = ttk.Button(root, text="Plot Line Chart", command=lambda: plot_line_chart(chart_frame))
+plot_button_line.pack(pady=10)
 
 # Start the Tkinter event loop
 root.mainloop()

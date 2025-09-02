@@ -1,11 +1,24 @@
 """
-Vi starter nede i venstre hjørne og går mot høyre. Ved enden snur vi og går tilbake til venstre, og slik fortsetter vi ved hver ende.
+Vi starter nede i venstre hjørne og går mot høyre. Ved enden snur vi og går 
+tilbake til venstre, og slik fortsetter vi ved hver ende.
 
-Treffer vi en stige beveger vi oss til stigens ende, og tilsvarende om vi treffer en slange. Nedenfor kan du se en tabell som oppsummerer plasseringen av stiger og slanger.
+Treffer vi en stige beveger vi oss til stigens ende, og tilsvarende om 
+vi treffer en slange. Nedenfor kan du se en tabell som oppsummerer 
+plasseringen av stiger og slanger.
 
-Vinneren er den som først kommer i mål. Synes du man må vinne ved å lande direkte på målfeltet? Eller holder det å passere det for å vinne?
+Vinneren er den som først kommer i mål. Synes du man må vinne ved å 
+lande direkte på målfeltet? Eller holder det å passere det for å vinne?
 
 Tabell over stiger og slanger
+# [[fra posisjoner],[destinasjoner]]
+stiger = [
+    [1,  4,9, 21,28,36,51,71, 80],
+    [38,14,31,42,84,44,67,91,100]
+]
+slanger = [
+    [16,48,49,56,62,64,87,93,95,98],
+    [6, 26,11,53,19,60,24,73,75,78]
+]
 
 """
 
@@ -18,14 +31,14 @@ shadow = []
 players = []
 radstart = 111
 endring = -1
-# Lager stiger
+# Lager stiger [[fra posisjoner],[destinasjoner]]
 stiger = [
-    [1,4,9,21,28,36,51,71,80],
+    [1,  4,9, 21,28,36,51,71, 80],
     [38,14,31,42,84,44,67,91,100]
 ]
 slanger = [
     [16,48,49,56,62,64,87,93,95,98],
-    [6,26,11,53,19,60,24,73,75,78]
+    [6, 26,11,53,19,60,24,73,75,78]
 ]
 for i in range(rader):
     if i % 2 == 0:
